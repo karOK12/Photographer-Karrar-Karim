@@ -4,138 +4,1027 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#080808">
-  <title>إنشاء حساب - كرار كريم</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <title>التسجيل - كرار كريم</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100dvh;
+      font-family:
+        Arial,
+        Tahoma,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        sans-serif;
+    }
+
+    .register-card input,
+    .register-card button {
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 400px) {
+      .register-card {
+        width: calc(100vw - 20px) !important;
+        max-width: none !important;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .register-card {
+        width: calc(100vw - 12px) !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-  <main class="auth-page">
+  <main
+    dir="rtl"
+    style="
+      min-height:100dvh;
+      width:100%;
+      background:linear-gradient(135deg,#ffffff 0%,#f3f3f3 22%,#171717 58%,#050505 100%);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px;
+      box-sizing:border-box;
+      overflow-x:hidden;
+      position:relative;
+      overflow-y:auto;
+      visibility:visible;
+      font-family:Arial,Tahoma,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+    "
+  >
 
-    <div class="auth-card">
+    <div
+      style="
+        position:absolute;
+        width:420px;
+        height:420px;
+        border-radius:50%;
+        background:rgba(37,99,235,.08);
+        filter:blur(70px);
+        top:-180px;
+        right:-120px;
+        pointer-events:none;
+      "
+    ></div>
 
-      <div class="auth-logo">
-        📸
+    <div
+      style="
+        position:absolute;
+        width:380px;
+        height:380px;
+        border-radius:50%;
+        background:rgba(139,92,246,.07);
+        filter:blur(80px);
+        bottom:-180px;
+        left:-120px;
+        pointer-events:none;
+      "
+    ></div>
+
+    <section
+      class="register-card"
+      style="
+        width:calc(100vw - 24px);
+        max-width:420px;
+        min-width:0;
+        position:relative;
+        z-index:2;
+        background:linear-gradient(145deg,#ffffff 0%,#f8fbff 55%,#eaf3ff 100%);
+        border:1px solid rgba(255,255,255,.12);
+        border-radius:18px;
+        padding:18px;
+        box-sizing:border-box;
+        overflow:hidden;
+        box-shadow:0 18px 55px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.025);
+        backdrop-filter:blur(18px);
+      "
+    >
+
+      <!-- الشعار والعنوان -->
+
+      <div
+        style="
+          text-align:center;
+          margin-bottom:17px;
+        "
+      >
+
+        <div
+          style="
+            width:72px;
+            height:72px;
+            margin:0 auto 9px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            overflow:hidden;
+            border-radius:50%;
+          "
+        >
+
+          <img
+            src="https://c.top4top.io/p_3928dg86x1.jpg"
+            alt="كرار كريم"
+            style="
+              width:100%;
+              height:100%;
+              object-fit:cover;
+              display:block;
+            "
+          >
+
+        </div>
+
+        <h1
+          style="
+            color:#173b8f;
+            margin:0;
+            font-size:22px;
+            font-weight:800;
+            letter-spacing:-.4px;
+          "
+        >
+          كرار كريم
+        </h1>
+
+        <div
+          style="
+            width:36px;
+            height:2px;
+            border-radius:10px;
+            background:linear-gradient(90deg,#2563eb,#8b5cf6);
+            margin:8px auto 0;
+          "
+        ></div>
+
       </div>
 
-      <h1>إنشاء حساب</h1>
+
+      <!-- نموذج التسجيل -->
 
       <form id="registerForm">
 
-        <div class="form-group">
-          <label for="name">الاسم الكامل</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="أدخل اسمك الكامل"
-            autocomplete="name"
-            required
+        <!-- الاسم الكامل -->
+
+        <div style="margin-bottom:12px;">
+
+          <label
+            for="fullName"
+            style="
+              display:block;
+              font-size:13px;
+              font-weight:600;
+              color:#173b8f;
+              margin-bottom:8px;
+            "
           >
+            الاسم الكامل
+          </label>
+
+          <div style="position:relative;">
+
+            <span
+              style="
+                position:absolute;
+                right:13px;
+                top:50%;
+                transform:translateY(-50%);
+                color:#64748b;
+                font-size:18px;
+                pointer-events:none;
+              "
+            >
+              👤
+            </span>
+
+            <input
+              id="fullName"
+              name="fullName"
+              type="text"
+              autocomplete="name"
+              maxlength="150"
+              placeholder="أدخل اسمك الكامل"
+              required
+              style="
+                width:100%;
+                height:47px;
+                box-sizing:border-box;
+                border-radius:11px;
+                border:1px solid #273449;
+                background:#0b1220;
+                color:#fff;
+                padding:0 44px 0 13px;
+                outline:none;
+                font-size:13px;
+              "
+            >
+
+          </div>
+
         </div>
 
-        <div class="form-group">
-          <label for="email">البريد الإلكتروني</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="example@email.com"
-            autocomplete="email"
-            required
+
+        <!-- البريد الإلكتروني -->
+
+        <div style="margin-bottom:12px;">
+
+          <label
+            for="email"
+            style="
+              display:block;
+              font-size:13px;
+              font-weight:600;
+              color:#173b8f;
+              margin-bottom:8px;
+            "
           >
+            البريد الإلكتروني
+          </label>
+
+          <div style="position:relative;">
+
+            <span
+              style="
+                position:absolute;
+                right:13px;
+                top:50%;
+                transform:translateY(-50%);
+                color:#64748b;
+                font-size:18px;
+                pointer-events:none;
+              "
+            >
+              ✉️
+            </span>
+
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              maxlength="255"
+              placeholder="example@email.com"
+              required
+              style="
+                width:100%;
+                height:47px;
+                box-sizing:border-box;
+                border-radius:11px;
+                border:1px solid #273449;
+                background:#0b1220;
+                color:#fff;
+                padding:0 44px 0 13px;
+                outline:none;
+                font-size:13px;
+              "
+            >
+
+          </div>
+
         </div>
 
-        <div class="form-group">
-          <label for="password">كلمة المرور</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="أدخل كلمة المرور"
-            autocomplete="new-password"
-            required
+
+        <!-- كلمة المرور -->
+
+        <div style="margin-bottom:12px;">
+
+          <label
+            for="password"
+            style="
+              display:block;
+              font-size:13px;
+              font-weight:600;
+              color:#173b8f;
+              margin-bottom:8px;
+            "
           >
+            كلمة المرور
+          </label>
+
+          <div style="position:relative;">
+
+            <span
+              style="
+                position:absolute;
+                right:13px;
+                top:50%;
+                transform:translateY(-50%);
+                color:#64748b;
+                font-size:17px;
+                pointer-events:none;
+              "
+            >
+              🔒
+            </span>
+
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="new-password"
+              minlength="8"
+              placeholder="أدخل كلمة المرور"
+              required
+              style="
+                width:100%;
+                height:47px;
+                box-sizing:border-box;
+                border-radius:11px;
+                border:1px solid #273449;
+                background:#0b1220;
+                color:#fff;
+                padding:0 44px 0 46px;
+                outline:none;
+                font-size:13px;
+              "
+            >
+
+            <button
+              type="button"
+              id="togglePassword"
+              aria-label="إظهار كلمة المرور"
+              style="
+                position:absolute;
+                left:8px;
+                top:50%;
+                transform:translateY(-50%);
+                width:32px;
+                height:32px;
+                border:none;
+                background:transparent;
+                color:#64748b;
+                cursor:pointer;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+              "
+            >
+
+              <svg
+                id="eyeIcon"
+                width="19"
+                height="19"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+
+            </button>
+
+          </div>
+
         </div>
 
-        <div class="form-group">
-          <label for="confirmPassword">تأكيد كلمة المرور</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            placeholder="أعد كتابة كلمة المرور"
-            autocomplete="new-password"
-            required
+
+        <!-- تأكيد كلمة المرور -->
+
+        <div style="margin-bottom:13px;">
+
+          <label
+            for="confirmPassword"
+            style="
+              display:block;
+              font-size:13px;
+              font-weight:600;
+              color:#173b8f;
+              margin-bottom:8px;
+            "
           >
+            تأكيد كلمة المرور
+          </label>
+
+          <div style="position:relative;">
+
+            <span
+              style="
+                position:absolute;
+                right:13px;
+                top:50%;
+                transform:translateY(-50%);
+                color:#64748b;
+                font-size:17px;
+                pointer-events:none;
+              "
+            >
+              🔐
+            </span>
+
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              autocomplete="new-password"
+              minlength="8"
+              placeholder="أعد كتابة كلمة المرور"
+              required
+              style="
+                width:100%;
+                height:47px;
+                box-sizing:border-box;
+                border-radius:11px;
+                border:1px solid #273449;
+                background:#0b1220;
+                color:#fff;
+                padding:0 44px 0 46px;
+                outline:none;
+                font-size:13px;
+              "
+            >
+
+            <button
+              type="button"
+              id="toggleConfirmPassword"
+              aria-label="إظهار تأكيد كلمة المرور"
+              style="
+                position:absolute;
+                left:8px;
+                top:50%;
+                transform:translateY(-50%);
+                width:32px;
+                height:32px;
+                border:none;
+                background:transparent;
+                color:#64748b;
+                cursor:pointer;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+              "
+            >
+
+              <svg
+                id="confirmEyeIcon"
+                width="19"
+                height="19"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+
+            </button>
+
+          </div>
+
         </div>
 
-        <button type="submit" class="auth-button">
-          إنشاء الحساب
+
+        <!-- زر التسجيل -->
+
+        <button
+          type="submit"
+          id="registerButton"
+          style="
+            width:100%;
+            height:48px;
+            border:none;
+            border-radius:11px;
+            background:linear-gradient(135deg,#2563eb,#4f46e5);
+            color:#fff;
+            font-size:14px;
+            font-weight:800;
+            cursor:pointer;
+            box-shadow:0 8px 20px rgba(37,99,235,.22);
+          "
+        >
+          تسجيل الحساب
         </button>
-
-        <p id="registerMessage" class="auth-message"></p>
 
       </form>
 
-      <div class="auth-divider">
-        <span>أو التسجيل باستخدام</span>
+
+      <!-- الرسالة -->
+
+      <div
+        id="message"
+        role="alert"
+        style="
+          display:none;
+          margin-top:11px;
+          padding:9px 11px;
+          border-radius:10px;
+          text-align:center;
+          font-size:12px;
+        "
+      ></div>
+
+
+      <!-- تسجيل الدخول + Google -->
+
+      <div
+        style="
+          width:100%;
+          margin-top:14px;
+          box-sizing:border-box;
+        "
+      >
+
+        <div
+          style="
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            flex-wrap:wrap;
+            gap:5px;
+            color:#94a3b8;
+            font-size:12px;
+            line-height:20px;
+            text-align:center;
+          "
+        >
+
+          <span>لديك حساب بالفعل؟</span>
+
+          <button
+            type="button"
+            onclick="window.location.href='/login.html';"
+            style="
+              border:none;
+              background:transparent;
+              color:#173b8f;
+              cursor:pointer;
+              font-size:12px;
+              font-weight:800;
+              padding:2px 4px;
+              margin:0;
+              white-space:nowrap;
+            "
+          >
+            تسجيل الدخول
+          </button>
+
+        </div>
+
+
+        <!-- الفاصل -->
+
+        <div
+          style="
+            width:100%;
+            display:flex;
+            align-items:center;
+            gap:9px;
+            margin:15px 0 11px;
+            box-sizing:border-box;
+          "
+        >
+
+          <span
+            style="
+              flex:1 1 0;
+              min-width:0;
+              height:1px;
+              background:#cbd5e1;
+            "
+          ></span>
+
+          <strong
+            style="
+              flex:0 0 auto;
+              color:#64748b;
+              font-size:12px;
+              font-weight:500;
+              white-space:nowrap;
+            "
+          >
+            أو المتابعة باستخدام
+          </strong>
+
+          <span
+            style="
+              flex:1 1 0;
+              min-width:0;
+              height:1px;
+              background:#cbd5e1;
+            "
+          ></span>
+
+        </div>
+
+
+        <!-- Google -->
+
+        <button
+          type="button"
+          onclick="window.location.href='/api/auth/google';"
+          style="
+            width:100%;
+            max-width:100%;
+            height:43px;
+            box-sizing:border-box;
+            border-radius:10px;
+            border:1px solid #cbd5e1;
+            background:#ffffff;
+            color:#1f2937;
+            cursor:pointer;
+            font-size:13px;
+            font-weight:700;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:9px;
+            padding:0 12px;
+            overflow:hidden;
+          "
+        >
+
+          <span
+            style="
+              width:20px;
+              height:20px;
+              flex:0 0 20px;
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              font-size:17px;
+              font-weight:900;
+              font-family:Arial,sans-serif;
+              color:#4285F4;
+            "
+          >
+            G
+          </span>
+
+          <span
+            style="
+              min-width:0;
+              overflow:hidden;
+              text-overflow:ellipsis;
+              white-space:nowrap;
+            "
+          >
+            متابعة باستخدام Google
+          </span>
+
+        </button>
+
       </div>
 
-      <div class="social-login">
 
-        <button type="button" class="social-button google-button">
-          <span class="social-icon google-icon">G</span>
-          <span>التسجيل باستخدام Google</span>
-        </button>
+      <!-- التذييل -->
 
-        <button type="button" class="social-button facebook-button">
-          <span class="social-icon facebook-icon">f</span>
-          <span>التسجيل باستخدام Facebook</span>
-        </button>
-
-        <button type="button" class="social-button phone-button">
-          <span class="social-icon phone-icon">☎</span>
-          <span>التسجيل باستخدام رقم الهاتف</span>
-        </button>
-
+      <div
+        style="
+          text-align:center;
+          margin-top:15px;
+          color:#475569;
+          font-size:10px;
+        "
+      >
+        كرار كريم
       </div>
 
-      <p class="auth-switch">
-        لديك حساب بالفعل؟
-        <a href="login.html">تسجيل الدخول</a>
-      </p>
-
-      <a href="index.html" class="back-home">
-        العودة إلى الرئيسية
-      </a>
-
-    </div>
+    </section>
 
   </main>
 
+
   <script>
-    const form = document.getElementById('registerForm');
-    const message = document.getElementById('registerMessage');
 
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
+    const registerForm =
+      document.getElementById("registerForm");
 
-      const password = document.getElementById('password').value;
-      const confirmPassword =
-        document.getElementById('confirmPassword').value;
+    const fullNameInput =
+      document.getElementById("fullName");
 
-      if (password !== confirmPassword) {
-        message.textContent = 'كلمتا المرور غير متطابقتين';
-        message.className = 'auth-message error';
-        return;
+    const emailInput =
+      document.getElementById("email");
+
+    const passwordInput =
+      document.getElementById("password");
+
+    const confirmPasswordInput =
+      document.getElementById("confirmPassword");
+
+    const registerButton =
+      document.getElementById("registerButton");
+
+    const message =
+      document.getElementById("message");
+
+
+    /* تركيز الحقول */
+
+    [
+      fullNameInput,
+      emailInput,
+      passwordInput,
+      confirmPasswordInput
+    ].forEach((input) => {
+
+      input.addEventListener("focus", () => {
+
+        input.style.borderColor = "#3b82f6";
+
+        input.style.boxShadow =
+          "0 0 0 3px rgba(59,130,246,.12)";
+
+      });
+
+      input.addEventListener("blur", () => {
+
+        input.style.borderColor = "#273449";
+
+        input.style.boxShadow = "none";
+
+      });
+
+    });
+
+
+    /* إظهار وإخفاء كلمة المرور */
+
+    function setupPasswordToggle(
+      input,
+      button,
+      icon
+    ) {
+
+      let visible = false;
+
+      button.addEventListener("click", () => {
+
+        visible = !visible;
+
+        input.type =
+          visible ? "text" : "password";
+
+        button.setAttribute(
+          "aria-label",
+          visible
+            ? "إخفاء كلمة المرور"
+            : "إظهار كلمة المرور"
+        );
+
+        if (visible) {
+
+          icon.innerHTML = `
+            <path d="M3 3l18 18"></path>
+            <path d="M10.58 10.58a2 2 0 0 0 2.83 2.83"></path>
+            <path d="M9.88 4.24A10.94 10.94 0 0 1 12 4c5 0 9.27 3.11 11 8-0.67 1.88-1.72 3.5-3.08 4.75"></path>
+            <path d="M6.61 6.61C4.62 7.84 3.07 9.68 2 12c1.73 4.89 6 8 10 8 1.61 0 3.16-.42 4.54-1.17"></path>
+          `;
+
+        } else {
+
+          icon.innerHTML = `
+            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          `;
+
+        }
+
+      });
+
+    }
+
+
+    setupPasswordToggle(
+      passwordInput,
+      document.getElementById("togglePassword"),
+      document.getElementById("eyeIcon")
+    );
+
+
+    setupPasswordToggle(
+      confirmPasswordInput,
+      document.getElementById("toggleConfirmPassword"),
+      document.getElementById("confirmEyeIcon")
+    );
+
+
+    /* التسجيل الحقيقي */
+
+    registerForm.addEventListener(
+      "submit",
+      async (event) => {
+
+        event.preventDefault();
+
+        message.style.display = "none";
+        message.textContent = "";
+
+        const fullName =
+          fullNameInput.value.trim();
+
+        const email =
+          emailInput.value.trim();
+
+        const password =
+          passwordInput.value;
+
+        const confirmPassword =
+          confirmPasswordInput.value;
+
+
+        if (
+          !fullName ||
+          !email ||
+          !password ||
+          !confirmPassword
+        ) {
+
+          showMessage(
+            "يرجى إكمال جميع الحقول",
+            false
+          );
+
+          return;
+        }
+
+
+        if (password.length < 8) {
+
+          showMessage(
+            "كلمة المرور يجب أن تكون 8 أحرف على الأقل",
+            false
+          );
+
+          return;
+        }
+
+
+        if (password !== confirmPassword) {
+
+          showMessage(
+            "كلمتا المرور غير متطابقتين",
+            false
+          );
+
+          return;
+        }
+
+
+        try {
+
+          registerButton.disabled = true;
+
+          registerButton.textContent =
+            "جارِ التسجيل...";
+
+          registerButton.style.background =
+            "#334155";
+
+          registerButton.style.cursor =
+            "not-allowed";
+
+          registerButton.style.boxShadow =
+            "none";
+
+
+          const response = await fetch(
+            "/api/auth/register",
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type": "application/json"
+              },
+
+              body: JSON.stringify({
+                fullName: fullName,
+                email: email,
+                password: password
+              })
+            }
+          );
+
+
+          const data =
+            await response.json();
+
+
+          if (!response.ok || !data?.success) {
+
+            showMessage(
+              data?.message ||
+              "تعذر إتمام التسجيل",
+              false
+            );
+
+            return;
+          }
+
+
+          showMessage(
+            "تم التسجيل بنجاح",
+            true
+          );
+
+
+          registerForm.reset();
+
+
+          setTimeout(() => {
+
+            window.location.href =
+              "/login.html";
+
+          }, 1200);
+
+
+        } catch (error) {
+
+          console.error(
+            "Registration error:",
+            error
+          );
+
+          showMessage(
+            "تعذر الاتصال بالخادم",
+            false
+          );
+
+        } finally {
+
+          registerButton.disabled = false;
+
+          registerButton.textContent =
+            "تسجيل الحساب";
+
+          registerButton.style.background =
+            "linear-gradient(135deg,#2563eb,#4f46e5)";
+
+          registerButton.style.cursor =
+            "pointer";
+
+          registerButton.style.boxShadow =
+            "0 8px 20px rgba(37,99,235,.22)";
+
+        }
+
+      }
+    );
+
+
+    /* عرض الرسائل */
+
+    function showMessage(
+      text,
+      success
+    ) {
+
+      message.textContent = text;
+
+      message.style.display = "block";
+
+
+      if (success) {
+
+        message.style.background =
+          "rgba(34,197,94,.10)";
+
+        message.style.border =
+          "1px solid rgba(34,197,94,.20)";
+
+        message.style.color =
+          "#86efac";
+
+      } else {
+
+        message.style.background =
+          "rgba(239,68,68,.10)";
+
+        message.style.border =
+          "1px solid rgba(239,68,68,.20)";
+
+        message.style.color =
+          "#fca5a5";
+
       }
 
-      message.textContent =
-        'واجهة التسجيل جاهزة للربط بقاعدة البيانات';
+    }
 
-      message.className = 'auth-message success';
-    });
   </script>
 
 </body>
