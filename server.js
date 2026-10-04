@@ -6,6 +6,7 @@ require('dotenv').config({ path: 'env.' });
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
 const { testDatabaseConnection } = require('./config/database');
 const authRouter = require('./api/auth');
 
@@ -19,6 +20,7 @@ app.use(cookieParser());
 app.use(express.static(__dirname));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Authentication
 app.use('/api/auth', authRouter);
 
 // Basic API
@@ -38,14 +40,18 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Start server
-app.listen(PORT, async () => {
-  console.log(`📸 Photographer Karrar Karim`);
-  console.log(`🚀 Server running on port ${PORT}`);
+// Local server
+if (require.main === module) {
+  app.listen(PORT, async () => {
+    console.log('📸 Photographer Karrar Karim');
+    console.log(`🚀 Server running on port ${PORT}`);
 
-  try {
-    await testDatabaseConnection();
-  } catch (error) {
-    console.error('❌ Neon connection failed:', error.message);
-  }
-});
+    try {
+      await testDatabaseConnection();
+    } catch (error) {
+      console.error('❌ Neon connection failed:', error.message);
+    }
+  });
+}
+
+module.exports = app;
