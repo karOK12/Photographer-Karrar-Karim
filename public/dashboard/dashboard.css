@@ -535,3 +535,12 @@ a {
   transform: none !important;
 }
 
+
+.top-nav-item {
+  transform: none !important;
+}
+
+.top-nav-item .nav-icon {
+  transform: translateY(2px) !important;
+}
+
