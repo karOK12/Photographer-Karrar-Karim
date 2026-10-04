@@ -549,3 +549,13 @@ a {
   transform: translateY(3px) !important;
 }
 
+
+.top-nav-item.active {
+  color: #2f8cff;
+  background: transparent;
+}
+
+.top-nav-item:active {
+  color: #2f8cff;
+}
+
