@@ -570,3 +570,14 @@ a {
   background: transparent !important;
 }
 
+
+.bottom-nav-item.active {
+  color: var(--muted) !important;
+  background: transparent !important;
+}
+
+.bottom-nav-item:active {
+  color: #2f8cff !important;
+  background: transparent !important;
+}
+
