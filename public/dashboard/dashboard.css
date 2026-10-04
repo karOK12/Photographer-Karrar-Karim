@@ -491,3 +491,17 @@ a {
   flex: 0 0 auto;
 }
 
+
+/* مطابقة توزيع ومسافات عناصر العلوي مع السفلي */
+.top-navigation {
+  gap: 4px;
+}
+
+.top-nav-item {
+  min-height: 58px;
+  height: 58px;
+  padding: 6px 4px;
+  gap: 4px;
+  border-radius: 14px;
+}
+
