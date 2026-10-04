@@ -559,3 +559,14 @@ a {
   color: #2f8cff;
 }
 
+
+.top-nav-item.active {
+  color: var(--muted) !important;
+  background: transparent !important;
+}
+
+.top-nav-item:active {
+  color: #2f8cff !important;
+  background: transparent !important;
+}
+
