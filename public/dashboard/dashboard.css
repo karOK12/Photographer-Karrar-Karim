@@ -434,3 +434,18 @@ a {
   transition: none;
 }
 
+
+/* منع تحريك الشريط العلوي يمين ويسار */
+.top-navigation {
+  overflow-x: hidden !important;
+  overflow-y: hidden;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.top-nav-item {
+  flex: 1 1 0;
+  min-width: 0;
+  white-space: nowrap;
+}
+
