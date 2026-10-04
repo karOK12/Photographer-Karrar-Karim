@@ -15,8 +15,6 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 
-app.use(express.static(path.join(__dirname, '..')));
-
 app.get('/dashboard', (req, res) => {
   const token = req.cookies?.auth_token;
 
@@ -41,6 +39,8 @@ app.get('/dashboard', (req, res) => {
     return res.redirect('/login.html');
   }
 });
+app.use(express.static(path.join(__dirname, '..')));
+
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
 app.use('/api/auth', authRouter);
