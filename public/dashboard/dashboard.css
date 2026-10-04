@@ -478,3 +478,16 @@ a {
   }
 }
 
+
+/* جعل عناصر الشريط العلوي بنفس أسلوب الشريط السفلي */
+.top-nav-item {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.top-nav-item .nav-icon {
+  flex: 0 0 auto;
+}
+
