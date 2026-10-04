@@ -520,3 +520,18 @@ a {
   transform: translateY(3px);
 }
 
+
+.top-nav-item .nav-icon {
+  transform: translateY(2px) !important;
+}
+
+
+.top-nav-item {
+  transform: none !important;
+  gap: 1px !important;
+}
+
+.top-nav-item .nav-icon {
+  transform: none !important;
+}
+
