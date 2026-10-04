@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
 const path = require('path');
 require('dotenv').config({ path: 'env.' });
 
@@ -20,7 +21,28 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/dashboard', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'dashboard', 'index.html'));
+  const token = req.cookies?.auth_token;
+
+  if (!token) {
+    return res.redirect('/login.html');
+  }
+
+  try {
+    jwt.verify(token, process.env.JWT_SECRET);
+
+    return res.sendFile(
+      path.join(__dirname, 'public', 'dashboard', 'index.html')
+    );
+  } catch (error) {
+    res.clearCookie('auth_token', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/'
+    });
+
+    return res.redirect('/login.html');
+  }
 });
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
