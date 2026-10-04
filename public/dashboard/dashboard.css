@@ -515,3 +515,8 @@ a {
   gap: 2.5px;
 }
 
+
+.top-nav-item {
+  transform: translateY(3px);
+}
+
