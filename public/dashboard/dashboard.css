@@ -1,0 +1,365 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #06101d;
+  --surface: #0b1727;
+  --surface-2: #101f33;
+  --border: rgba(255, 255, 255, 0.08);
+  --text: #f5f7fa;
+  --muted: #8f9caf;
+  --accent: #2f8cff;
+  --accent-soft: rgba(47, 140, 255, 0.12);
+  --top-height: 76px;
+  --bottom-height: 76px;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  font-family: Arial, "Tahoma", sans-serif;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(47, 140, 255, 0.14), transparent 35%),
+    var(--bg);
+  color: var(--text);
+  direction: rtl;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.dashboard-app {
+  min-height: 100vh;
+  padding-top: var(--top-height);
+  padding-bottom: calc(var(--bottom-height) + env(safe-area-inset-bottom));
+}
+
+/* =========================
+   الشريط العلوي
+========================= */
+
+.top-bar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: var(--top-height);
+  z-index: 1000;
+  background: rgba(6, 16, 29, 0.94);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.top-bar-inner {
+  width: min(1180px, 100%);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* الشعار */
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+}
+
+.brand-mark {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #2f8cff, #155bc0);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(47, 140, 255, 0.18);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  white-space: nowrap;
+}
+
+.brand-text strong {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.brand-text span {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* التنقل العلوي */
+
+.top-navigation {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.top-navigation::-webkit-scrollbar {
+  display: none;
+}
+
+.top-nav-item {
+  min-width: max-content;
+  height: 46px;
+  padding: 0 13px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  transition: 0.2s ease;
+}
+
+.top-nav-item:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.top-nav-item.active {
+  color: #fff;
+  background: var(--accent-soft);
+}
+
+.nav-icon {
+  font-size: 17px;
+  line-height: 1;
+}
+
+/* =========================
+   المحتوى
+========================= */
+
+.dashboard-content {
+  width: min(1180px, 100%);
+  min-height: calc(100vh - var(--top-height) - var(--bottom-height));
+  margin: 0 auto;
+  padding: 34px 18px 40px;
+}
+
+.welcome-section {
+  padding: 12px 2px 24px;
+}
+
+.welcome-label {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.welcome-section h1 {
+  font-size: clamp(25px, 5vw, 38px);
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.welcome-section p {
+  max-width: 650px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.content-placeholder {
+  min-height: 260px;
+  padding: 32px 20px;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.035),
+      rgba(255, 255, 255, 0.012)
+    );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.placeholder-icon {
+  width: 62px;
+  height: 62px;
+  margin-bottom: 16px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background: var(--accent-soft);
+  font-size: 27px;
+}
+
+.content-placeholder h2 {
+  font-size: 19px;
+  margin-bottom: 7px;
+}
+
+.content-placeholder p {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* =========================
+   الشريط السفلي
+========================= */
+
+.bottom-bar {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  min-height: var(--bottom-height);
+  padding:
+    7px 10px
+    calc(7px + env(safe-area-inset-bottom))
+    10px;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  background: rgba(6, 16, 29, 0.96);
+  border-top: 1px solid var(--border);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.bottom-nav-item {
+  flex: 1 1 0;
+  max-width: 150px;
+  min-width: 0;
+  min-height: 58px;
+  padding: 6px 4px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  transition: 0.2s ease;
+}
+
+.bottom-nav-item:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.bottom-nav-item.active {
+  color: #fff;
+  background: var(--accent-soft);
+}
+
+.bottom-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* =========================
+   الشاشات الصغيرة
+========================= */
+
+@media (max-width: 700px) {
+  :root {
+    --top-height: 68px;
+    --bottom-height: 72px;
+  }
+
+  .top-bar-inner {
+    padding: 0 12px;
+    gap: 12px;
+  }
+
+  .brand-text {
+    display: none;
+  }
+
+  .brand-mark {
+    width: 40px;
+    height: 40px;
+  }
+
+  .top-navigation {
+    flex: 1;
+  }
+
+  .top-nav-item {
+    height: 42px;
+    padding: 0 10px;
+    font-size: 11px;
+  }
+
+  .dashboard-content {
+    padding: 26px 13px 30px;
+  }
+
+  .welcome-section {
+    padding-top: 4px;
+  }
+
+  .content-placeholder {
+    min-height: 230px;
+    border-radius: 18px;
+  }
+
+  .bottom-bar {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .bottom-nav-item {
+    min-height: 56px;
+    border-radius: 12px;
+    font-size: 9px;
+  }
+
+  .bottom-icon {
+    font-size: 19px;
+  }
+}
+
+@media (max-width: 430px) {
+  .top-nav-item {
+    padding: 0 8px;
+  }
+
+  .top-nav-item .nav-icon {
+    font-size: 15px;
+  }
+
+  .dashboard-content {
+    padding-left: 11px;
+    padding-right: 11px;
+  }
+}
