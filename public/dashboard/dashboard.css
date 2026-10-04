@@ -505,3 +505,8 @@ a {
   border-radius: 14px;
 }
 
+
+.top-nav-item {
+  gap: 3px;
+}
+
