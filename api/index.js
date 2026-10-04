@@ -15,6 +15,10 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, '..')));
+
+app.get('/dashboard', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'dashboard', 'index.html'));
+});
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
 app.use('/api/auth', authRouter);

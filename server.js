@@ -18,6 +18,10 @@ app.use(cookieParser());
 
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/dashboard', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'dashboard', 'index.html'));
+});
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Authentication
