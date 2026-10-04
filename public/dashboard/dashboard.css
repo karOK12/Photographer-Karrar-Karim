@@ -420,3 +420,17 @@ a {
   stroke: none;
 }
 
+
+/* تثبيت أيقونات الشريط العلوي */
+.top-nav-item .nav-icon {
+  transform: none !important;
+  transition: none !important;
+  animation: none !important;
+  position: static;
+  flex: 0 0 20px;
+}
+
+.top-nav-item {
+  transition: none;
+}
+
