@@ -999,6 +999,7 @@ a {
   max-height: none;
   margin: 0;
   object-fit: cover;
+  pointer-events: none;
 }
 
 .post-media-remove {
