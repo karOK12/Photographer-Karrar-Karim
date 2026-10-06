@@ -64,28 +64,31 @@
         >
 
         <label class="post-field-label" for="postContent">وصف المنشور</label>
-        <textarea
-          id="postContent"
-          class="post-textarea"
-          maxlength="5000"
-          placeholder="اكتب وصفاً واضحاً للمنشور..."
-        ></textarea>
 
-        <div class="post-media-actions">
-          <label class="post-media-button">
-            <i class="fa-solid fa-photo-film" aria-hidden="true"></i>
-            <span>إضافة صور أو فيديوهات</span>
-            <input
-              type="file"
-              id="postMedia"
-              accept="image/*,video/*"
-              multiple
-              hidden
-            >
-          </label>
+        <div class="post-content-media-box">
+          <textarea
+            id="postContent"
+            class="post-textarea"
+            maxlength="5000"
+            placeholder="اكتب وصفاً واضحاً للمنشور..."
+          ></textarea>
+
+          <div class="post-media-actions">
+            <label class="post-media-button">
+              <i class="fa-solid fa-photo-film" aria-hidden="true"></i>
+              <span>إضافة صور أو فيديوهات</span>
+              <input
+                type="file"
+                id="postMedia"
+                accept="image/*,video/*"
+                multiple
+                hidden
+              >
+            </label>
+          </div>
+
+          <div class="post-selected-file" id="postSelectedFile"></div>
         </div>
-
-        <div class="post-selected-file" id="postSelectedFile"></div>
 
         <button type="button" class="publish-post-button" id="publishPostButton">
           <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
