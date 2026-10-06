@@ -95,6 +95,41 @@
     </div>
   </div>
 
+  <div class="media-viewer" id="mediaViewer" aria-hidden="true">
+    <div class="media-viewer-overlay" id="mediaViewerOverlay"></div>
+
+    <div class="media-viewer-content" role="dialog" aria-modal="true" aria-label="عرض الوسائط">
+      <button
+        type="button"
+        class="media-viewer-close"
+        id="mediaViewerClose"
+        aria-label="إغلاق"
+      >
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+
+      <button
+        type="button"
+        class="media-viewer-prev"
+        id="mediaViewerPrev"
+        aria-label="الوسائط السابقة"
+      >
+        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+      </button>
+
+      <div class="media-viewer-stage" id="mediaViewerStage"></div>
+
+      <button
+        type="button"
+        class="media-viewer-next"
+        id="mediaViewerNext"
+        aria-label="الوسائط التالية"
+      >
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+
   <script>
     const createPostButton = document.getElementById('createPostButton');
     const postModal = document.getElementById('postModal');
@@ -106,6 +141,103 @@
     let selectedMediaFiles = [];
     const postSection = document.getElementById('postSection');
     const postSubsection = document.getElementById('postSubsection');
+
+    const mediaViewer = document.getElementById('mediaViewer');
+    const mediaViewerOverlay = document.getElementById('mediaViewerOverlay');
+    const mediaViewerClose = document.getElementById('mediaViewerClose');
+    const mediaViewerPrev = document.getElementById('mediaViewerPrev');
+    const mediaViewerNext = document.getElementById('mediaViewerNext');
+    const mediaViewerStage = document.getElementById('mediaViewerStage');
+
+    let mediaViewerIndex = 0;
+
+    function renderMediaViewer() {
+      if (!selectedMediaFiles.length) {
+        return;
+      }
+
+      const file = selectedMediaFiles[mediaViewerIndex];
+
+      if (!file) {
+        return;
+      }
+
+      mediaViewerStage.innerHTML = '';
+
+      const fileUrl = URL.createObjectURL(file);
+
+      if (file.type.startsWith('image/')) {
+        const image = document.createElement('img');
+        image.src = fileUrl;
+        image.alt = 'عرض الصورة';
+        mediaViewerStage.appendChild(image);
+      } else if (file.type.startsWith('video/')) {
+        const video = document.createElement('video');
+        video.src = fileUrl;
+        video.controls = true;
+        video.autoplay = true;
+        video.preload = 'metadata';
+        mediaViewerStage.appendChild(video);
+      }
+
+      mediaViewer.classList.add('open');
+      mediaViewer.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMediaViewer() {
+      mediaViewer.classList.remove('open');
+      mediaViewer.setAttribute('aria-hidden', 'true');
+      mediaViewerStage.innerHTML = '';
+      document.body.style.overflow = '';
+    }
+
+    function showPreviousMedia() {
+      if (selectedMediaFiles.length <= 1) {
+        return;
+      }
+
+      mediaViewerIndex =
+        (mediaViewerIndex - 1 + selectedMediaFiles.length) %
+        selectedMediaFiles.length;
+
+      renderMediaViewer();
+    }
+
+    function showNextMedia() {
+      if (selectedMediaFiles.length <= 1) {
+        return;
+      }
+
+      mediaViewerIndex =
+        (mediaViewerIndex + 1) %
+        selectedMediaFiles.length;
+
+      renderMediaViewer();
+    }
+
+    mediaViewerClose.addEventListener('click', closeMediaViewer);
+    mediaViewerOverlay.addEventListener('click', closeMediaViewer);
+    mediaViewerPrev.addEventListener('click', showPreviousMedia);
+    mediaViewerNext.addEventListener('click', showNextMedia);
+
+    document.addEventListener('keydown', (event) => {
+      if (!mediaViewer.classList.contains('open')) {
+        return;
+      }
+
+      if (event.key === 'Escape') {
+        closeMediaViewer();
+      }
+
+      if (event.key === 'ArrowRight') {
+        showPreviousMedia();
+      }
+
+      if (event.key === 'ArrowLeft') {
+        showNextMedia();
+      }
+    });
 
     const sectionSubsections = {
       studio: [
@@ -215,6 +347,17 @@
         });
 
         mediaItem.appendChild(removeButton);
+
+        mediaItem.style.cursor = 'pointer';
+
+        mediaItem.addEventListener('click', (event) => {
+          if (event.target.closest('.post-media-remove')) {
+            return;
+          }
+
+          mediaViewerIndex = index;
+          renderMediaViewer();
+        });
 
         if (file.type.startsWith('image/')) {
           const preview = document.createElement('img');
