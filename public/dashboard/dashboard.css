@@ -1039,13 +1039,14 @@ a {
 
 .post-selected-file[data-count="1"] {
   grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
 }
 
 .post-selected-file[data-count="1"] .post-media-item {
   aspect-ratio: 16 / 9;
 }
 
-/* 2 وسائط: نصفين */
+/* 2 وسائط */
 .post-selected-file[data-count="2"] {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-template-rows: 1fr;
@@ -1055,33 +1056,34 @@ a {
   aspect-ratio: 1 / 1;
 }
 
-/* 3 وسائط: واحدة كبيرة + اثنتان */
+/* 3 وسائط: الكبيرة على اليمين + اثنتان على اليسار */
 .post-selected-file[data-count="3"] {
   grid-template-columns: 2fr 1fr;
   grid-template-rows: repeat(2, minmax(0, 1fr));
 }
 
 .post-selected-file[data-count="3"] .post-media-item:first-child {
+  grid-column: 1;
   grid-row: 1 / 3;
   aspect-ratio: auto;
 }
 
 .post-selected-file[data-count="3"] .post-media-item:nth-child(2),
 .post-selected-file[data-count="3"] .post-media-item:nth-child(3) {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: auto;
 }
 
-/* 4 وسائط: أربع خانات */
+/* 4 وسائط */
 .post-selected-file[data-count="4"] {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-template-rows: repeat(2, minmax(0, 1fr));
 }
 
 .post-selected-file[data-count="4"] .post-media-item {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: auto;
 }
 
-/* 5 وسائط: واحدة كبيرة + أربع خانات */
+/* 5 وسائط: نصف كبير + أربعة صغار */
 .post-selected-file[data-count="5"] {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   grid-template-rows: repeat(2, minmax(0, 1fr));
@@ -1093,15 +1095,11 @@ a {
   aspect-ratio: auto;
 }
 
-.post-selected-file[data-count="5"] .post-media-item:nth-child(2),
-.post-selected-file[data-count="5"] .post-media-item:nth-child(3),
-.post-selected-file[data-count="5"] .post-media-item:nth-child(4),
-.post-selected-file[data-count="5"] .post-media-item:nth-child(5) {
-  aspect-ratio: 1 / 1;
+.post-selected-file[data-count="5"] .post-media-item:nth-child(n + 2) {
+  aspect-ratio: auto;
 }
 
-/* 6–10 وسائط:
-   المعاينة تعرض أول 5 وسائط مع +N للباقي */
+/* 6 إلى 10: نفس فكرة المعرض مع إظهار أول 5 و +N */
 .post-selected-file[data-count="6"],
 .post-selected-file[data-count="7"],
 .post-selected-file[data-count="8"],
@@ -1126,7 +1124,7 @@ a {
 .post-selected-file[data-count="8"] .post-media-item:nth-child(n + 2),
 .post-selected-file[data-count="9"] .post-media-item:nth-child(n + 2),
 .post-selected-file[data-count="10"] .post-media-item:nth-child(n + 2) {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: auto;
 }
 
 @media (max-width: 600px) {
