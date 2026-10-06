@@ -581,3 +581,391 @@ a {
   background: transparent !important;
 }
 
+
+/* =========================
+   الشريط الجانبي الأيسر
+========================= */
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: min(320px, 86vw);
+  height: 100vh;
+  height: 100dvh;
+  z-index: 1200;
+  padding: 22px 16px;
+  background: rgba(11, 23, 39, 0.98);
+  border-right: 1px solid var(--border);
+  box-shadow: 12px 0 40px rgba(0, 0, 0, 0.35);
+  transform: translateX(-105%);
+  transition: transform 0.25s ease;
+  overflow-y: auto;
+}
+
+.side-menu.open {
+  transform: translateX(0);
+}
+
+.side-menu-header {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  direction: rtl;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.side-menu-header strong {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.side-menu-close {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.side-menu-navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.side-menu-item {
+  min-height: 52px;
+  padding: 0 14px;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  direction: rtl;
+  color: var(--text);
+  background: transparent;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background 0.2s ease;
+}
+
+.side-menu-item i {
+  width: 22px;
+  text-align: center;
+  color: var(--accent);
+  font-size: 17px;
+  flex: 0 0 22px;
+}
+
+.side-menu-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.side-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  background: rgba(0, 0, 0, 0.48);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.side-menu-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* زر فتح القائمة */
+.side-menu-toggle {
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 18px;
+  flex: 0 0 auto;
+}
+
+.side-menu-toggle:hover {
+  background: var(--accent-soft);
+}
+
+@media (max-width: 700px) {
+  .side-menu {
+    width: min(300px, 84vw);
+    padding: 18px 13px;
+  }
+
+  .side-menu-item {
+    min-height: 50px;
+  }
+}
+
+/* تثبيت زر القائمة في الجهة اليسرى */
+.top-bar-inner {
+  direction: ltr;
+}
+
+.top-bar-inner .brand,
+.top-bar-inner .top-navigation {
+  direction: rtl;
+}
+
+/* إبقاء ترتيب الشريط العلوي كما هو وتحريك زر القائمة فقط لليسار */
+.top-bar-inner {
+  direction: rtl;
+}
+
+.side-menu-toggle {
+  order: 10;
+  margin-right: auto;
+  margin-left: 0;
+}
+
+/* جعل زر القائمة دائرياً */
+.side-menu-toggle {
+  border-radius: 50%;
+}
+
+/* جعل أيقونة البروفايل KK دائرية */
+.brand-mark {
+  border-radius: 50%;
+}
+
+/* =========================
+   واجهة إنشاء المنشور
+========================= */
+
+.studio-publisher {
+  margin-top: 24px;
+}
+
+.create-post-button {
+  width: 100%;
+  min-height: 58px;
+  padding: 0 20px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.create-post-button i {
+  color: var(--accent);
+  font-size: 18px;
+}
+
+.create-post-button:hover {
+  background: var(--accent-soft);
+}
+
+.create-post-button:active {
+  transform: scale(0.99);
+}
+
+.post-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1500;
+  display: none;
+}
+
+.post-modal.open {
+  display: block;
+}
+
+.post-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.post-modal-card {
+  position: relative;
+  z-index: 1;
+  width: min(560px, calc(100% - 28px));
+  max-height: calc(100vh - 40px);
+  max-height: calc(100dvh - 40px);
+  margin: 20px auto;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--surface);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.post-modal-header {
+  min-height: 64px;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-modal-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.post-modal-close {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.post-modal-body {
+  padding: 20px;
+}
+
+.post-field-label {
+  display: block;
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.post-input,
+.post-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 18px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  outline: none;
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+}
+
+.post-input {
+  height: 48px;
+  padding: 0 14px;
+}
+
+.post-textarea {
+  min-height: 150px;
+  padding: 14px;
+  resize: vertical;
+}
+
+.post-input:focus,
+.post-textarea:focus {
+  border-color: var(--accent);
+}
+
+.post-media-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.post-media-button {
+  min-height: 50px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.post-media-button i {
+  color: var(--accent);
+}
+
+.post-media-button:hover {
+  background: var(--accent-soft);
+}
+
+.post-selected-file {
+  min-height: 20px;
+  margin-bottom: 14px;
+  color: var(--muted);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.publish-post-button {
+  width: 100%;
+  min-height: 52px;
+  border: 0;
+  border-radius: 13px;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.publish-post-button:hover {
+  opacity: 0.92;
+}
+
+@media (max-width: 500px) {
+  .post-modal-card {
+    width: calc(100% - 18px);
+    margin: 9px auto;
+    max-height: calc(100vh - 18px);
+    max-height: calc(100dvh - 18px);
+  }
+
+  .post-modal-body {
+    padding: 16px;
+  }
+
+  .post-media-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+.post-media-preview {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  max-height: 320px;
+  margin: 12px auto 0;
+  border-radius: 12px;
+  object-fit: contain;
+  background: #000;
+}
+
+.post-selected-file:empty {
+  display: none;
+}

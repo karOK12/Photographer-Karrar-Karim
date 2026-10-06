@@ -9,12 +9,195 @@
 </head>
 <body>
   <div class="dashboard-app">
+
     <main class="dashboard-content">
       <section class="welcome-section">
         <span class="welcome-label">الاستوديو</span>
         <h1>الاستوديو</h1>
       </section>
+
+      <section class="studio-publisher">
+        <button type="button" class="create-post-button" id="createPostButton">
+          <i class="fa-solid fa-plus" aria-hidden="true"></i>
+          <span>إنشاء منشور</span>
+        </button>
+      </section>
     </main>
+
   </div>
+
+  <div class="post-modal" id="postModal" aria-hidden="true">
+    <div class="post-modal-overlay" id="postModalOverlay"></div>
+
+    <div class="post-modal-card" role="dialog" aria-modal="true" aria-labelledby="postModalTitle">
+      <div class="post-modal-header">
+        <h2 id="postModalTitle">إنشاء منشور</h2>
+
+        <button type="button" class="post-modal-close" id="postModalClose" aria-label="إغلاق">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="post-modal-body">
+        <label class="post-field-label" for="postSection">القسم</label>
+        <select id="postSection" class="post-input">
+          <option value="studio">الاستوديو</option>
+          <option value="poetry">قصائد شعرية</option>
+          <option value="theatre">مسرحي</option>
+          <option value="events">المناسبات</option>
+          <option value="festivals">المهرجانات</option>
+          <option value="articles">المقالات</option>
+        </select>
+
+        <label class="post-field-label" for="postSubsection">القسم الفرعي</label>
+        <select id="postSubsection" class="post-input">
+          <option value="">اختر القسم الفرعي</option>
+        </select>
+
+        <label class="post-field-label" for="postTitle">عنوان المنشور</label>
+        <input
+          type="text"
+          id="postTitle"
+          class="post-input"
+          maxlength="255"
+          placeholder="اكتب عنواناً للمنشور"
+        >
+
+        <label class="post-field-label" for="postContent">محتوى المنشور</label>
+        <textarea
+          id="postContent"
+          class="post-textarea"
+          maxlength="5000"
+          placeholder="اكتب شيئاً..."
+        ></textarea>
+
+        <div class="post-media-actions">
+          <label class="post-media-button">
+            <i class="fa-solid fa-image" aria-hidden="true"></i>
+            <span>إضافة صورة</span>
+            <input type="file" id="postImage" accept="image/*" hidden>
+          </label>
+
+          <label class="post-media-button">
+            <i class="fa-solid fa-video" aria-hidden="true"></i>
+            <span>إضافة فيديو</span>
+            <input type="file" id="postVideo" accept="video/*" hidden>
+          </label>
+        </div>
+
+        <div class="post-selected-file" id="postSelectedFile"></div>
+
+        <button type="button" class="publish-post-button" id="publishPostButton">
+          <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+          <span>نشر المنشور</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const createPostButton = document.getElementById('createPostButton');
+    const postModal = document.getElementById('postModal');
+    const postModalClose = document.getElementById('postModalClose');
+    const postModalOverlay = document.getElementById('postModalOverlay');
+    const postImage = document.getElementById('postImage');
+    const postVideo = document.getElementById('postVideo');
+    const postSelectedFile = document.getElementById('postSelectedFile');
+    const postSection = document.getElementById('postSection');
+    const postSubsection = document.getElementById('postSubsection');
+
+    const sectionSubsections = {
+      studio: [
+        ['general', 'أعمال الاستوديو']
+      ],
+      poetry: [
+        ['poems', 'قصائد شعرية']
+      ],
+      theatre: [
+        ['plays', 'مسرحيات']
+      ],
+      events: [
+        ['general', 'فعاليات ومناسبات']
+      ],
+      festivals: [
+        ['general', 'مهرجانات']
+      ],
+      articles: [
+        ['general', 'مقالات']
+      ]
+    };
+
+    function updateSubsections() {
+      const sections = sectionSubsections[postSection.value] || [];
+
+      postSubsection.innerHTML = '<option value="">اختر القسم الفرعي</option>';
+
+      sections.forEach(([value, label]) => {
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = label;
+        postSubsection.appendChild(option);
+      });
+    }
+
+    postSection.addEventListener('change', updateSubsections);
+    updateSubsections();
+
+    function openPostModal() {
+      postModal.classList.add('open');
+      postModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePostModal() {
+      postModal.classList.remove('open');
+      postModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function showSelectedFile(input) {
+      if (!input.files.length) return;
+
+      const file = input.files[0];
+      const fileUrl = URL.createObjectURL(file);
+
+      postSelectedFile.innerHTML = '';
+
+      if (file.type.startsWith('image/')) {
+        const preview = document.createElement('img');
+        preview.src = fileUrl;
+        preview.alt = 'معاينة الصورة';
+        preview.className = 'post-media-preview';
+        postSelectedFile.appendChild(preview);
+      } else if (file.type.startsWith('video/')) {
+        const preview = document.createElement('video');
+        preview.src = fileUrl;
+        preview.className = 'post-media-preview';
+        preview.controls = true;
+        preview.preload = 'metadata';
+        postSelectedFile.appendChild(preview);
+      }
+    }
+
+    createPostButton.addEventListener('click', openPostModal);
+    postModalClose.addEventListener('click', closePostModal);
+    postModalOverlay.addEventListener('click', closePostModal);
+
+    postImage.addEventListener('change', () => {
+      postVideo.value = '';
+      showSelectedFile(postImage);
+    });
+
+    postVideo.addEventListener('change', () => {
+      postImage.value = '';
+      showSelectedFile(postVideo);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closePostModal();
+      }
+    });
+  </script>
 </body>
 </html>
