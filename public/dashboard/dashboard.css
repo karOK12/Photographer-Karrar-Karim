@@ -1239,3 +1239,7 @@ a {
     left: 10px;
   }
 }
+
+.post-selected-file[data-count="0"] {
+  display: none;
+}
