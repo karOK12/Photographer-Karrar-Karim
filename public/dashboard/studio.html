@@ -160,6 +160,7 @@
       selectedMediaFiles = Array.from(input.files);
 
       if (!selectedMediaFiles.length) {
+        postSelectedFile.innerHTML = '';
         postSelectedFile.dataset.count = '0';
         return;
       }
@@ -169,15 +170,18 @@
       if (selectedFiles.length > MAX_MEDIA_FILES) {
         alert(`الحد الأقصى المسموح به هو ${MAX_MEDIA_FILES} ملفات فقط.`);
         input.value = '';
+        selectedMediaFiles = [];
         postSelectedFile.innerHTML = '';
+        postSelectedFile.dataset.count = '0';
         return;
       }
 
       postSelectedFile.innerHTML = '';
       postSelectedFile.dataset.count = selectedFiles.length;
 
-      const visibleFiles = selectedFiles.slice(0, 5);
-      const extraCount = selectedFiles.length - visibleFiles.length;
+      const visibleCount = selectedFiles.length > 5 ? 5 : selectedFiles.length;
+      const visibleFiles = selectedFiles.slice(0, visibleCount);
+      const extraCount = selectedFiles.length - visibleCount;
 
       visibleFiles.forEach((file, index) => {
         const fileUrl = URL.createObjectURL(file);
@@ -189,7 +193,8 @@
         removeButton.type = 'button';
         removeButton.className = 'post-media-remove';
         removeButton.setAttribute('aria-label', 'حذف الوسائط');
-        removeButton.innerHTML = '<i class="fa-solid fa-xmark" aria-hidden="true"></i>';
+        removeButton.innerHTML =
+          '<i class="fa-solid fa-xmark" aria-hidden="true"></i>';
 
         removeButton.addEventListener('click', () => {
           URL.revokeObjectURL(fileUrl);
@@ -205,8 +210,6 @@
           });
 
           postMedia.files = dataTransfer.files;
-
-          mediaItem.remove();
 
           showSelectedFiles(postMedia);
         });
