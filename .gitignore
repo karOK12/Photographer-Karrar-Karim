@@ -7,3 +7,6 @@ node_modules/
 *.log
 env.
 .vercel
+.env.production
+
+.vercel-prod.env

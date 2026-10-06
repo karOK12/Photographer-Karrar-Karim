@@ -113,3 +113,44 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+/* =========================
+   التحكم بالشريط الجانبي
+========================= */
+
+document.addEventListener('DOMContentLoaded', () => {
+  const sideMenu = document.getElementById('sideMenu');
+  const sideMenuToggle = document.getElementById('sideMenuToggle');
+  const sideMenuClose = document.getElementById('sideMenuClose');
+  const sideMenuOverlay = document.getElementById('sideMenuOverlay');
+
+  if (!sideMenu || !sideMenuToggle || !sideMenuClose || !sideMenuOverlay) {
+    return;
+  }
+
+  function openSideMenu() {
+    sideMenu.classList.add('open');
+    sideMenuOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSideMenu() {
+    sideMenu.classList.remove('open');
+    sideMenuOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  sideMenuToggle.addEventListener('click', openSideMenu);
+  sideMenuClose.addEventListener('click', closeSideMenu);
+  sideMenuOverlay.addEventListener('click', closeSideMenu);
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeSideMenu();
+    }
+  });
+
+  sideMenu.querySelectorAll('a').forEach((item) => {
+    item.addEventListener('click', closeSideMenu);
+  });
+});

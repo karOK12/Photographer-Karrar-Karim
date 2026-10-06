@@ -17,6 +17,10 @@
     <header class="top-bar">
       <div class="top-bar-inner">
 
+        <button type="button" class="side-menu-toggle" id="sideMenuToggle" aria-label="فتح القائمة">
+          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+
         <div class="brand">
           <div class="brand-mark">KK</div>
           <div class="brand-text">
@@ -49,6 +53,45 @@
 
       </div>
     </header>
+
+    <!-- الشريط الجانبي الأيسر -->
+    <aside class="side-menu" id="sideMenu" aria-label="القائمة الجانبية">
+      <div class="side-menu-header">
+        <strong>القائمة</strong>
+        <button type="button" class="side-menu-close" id="sideMenuClose" aria-label="إغلاق القائمة">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <nav class="side-menu-navigation">
+        <a href="/settings.html" class="side-menu-item">
+          <i class="fa-solid fa-gear" aria-hidden="true"></i>
+          <span>الإعدادات</span>
+        </a>
+
+        <a href="/privacy.html" class="side-menu-item">
+          <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+          <span>الخصوصية</span>
+        </a>
+
+        <a href="/terms.html" class="side-menu-item">
+          <i class="fa-solid fa-file-contract" aria-hidden="true"></i>
+          <span>الشروط والأحكام</span>
+        </a>
+
+        <a href="/policies.html" class="side-menu-item">
+          <i class="fa-solid fa-scale-balanced" aria-hidden="true"></i>
+          <span>سياسات التطبيق</span>
+        </a>
+
+        <a href="/about.html" class="side-menu-item">
+          <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+          <span>حول التطبيق</span>
+        </a>
+      </nav>
+    </aside>
+
+    <div class="side-menu-overlay" id="sideMenuOverlay"></div>
 
     <!-- المحتوى -->
     <main class="dashboard-content">

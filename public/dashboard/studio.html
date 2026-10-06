@@ -160,6 +160,7 @@
       selectedMediaFiles = Array.from(input.files);
 
       if (!selectedMediaFiles.length) {
+        postSelectedFile.dataset.count = '0';
         return;
       }
 
@@ -173,8 +174,9 @@
       }
 
       postSelectedFile.innerHTML = '';
+      postSelectedFile.dataset.count = selectedFiles.length;
 
-      const visibleFiles = selectedFiles.slice(0, 4);
+      const visibleFiles = selectedFiles.slice(0, 5);
       const extraCount = selectedFiles.length - visibleFiles.length;
 
       visibleFiles.forEach((file, index) => {
