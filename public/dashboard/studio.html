@@ -73,15 +73,15 @@
 
         <div class="post-media-actions">
           <label class="post-media-button">
-            <i class="fa-solid fa-image" aria-hidden="true"></i>
-            <span>إضافة صورة</span>
-            <input type="file" id="postImage" accept="image/*" hidden>
-          </label>
-
-          <label class="post-media-button">
-            <i class="fa-solid fa-video" aria-hidden="true"></i>
-            <span>إضافة فيديو</span>
-            <input type="file" id="postVideo" accept="video/*" hidden>
+            <i class="fa-solid fa-photo-film" aria-hidden="true"></i>
+            <span>إضافة صور أو فيديوهات</span>
+            <input
+              type="file"
+              id="postMedia"
+              accept="image/*,video/*"
+              multiple
+              hidden
+            >
           </label>
         </div>
 
@@ -100,9 +100,9 @@
     const postModal = document.getElementById('postModal');
     const postModalClose = document.getElementById('postModalClose');
     const postModalOverlay = document.getElementById('postModalOverlay');
-    const postImage = document.getElementById('postImage');
-    const postVideo = document.getElementById('postVideo');
+    const postMedia = document.getElementById('postMedia');
     const postSelectedFile = document.getElementById('postSelectedFile');
+    const MAX_MEDIA_FILES = 10;
     const postSection = document.getElementById('postSection');
     const postSubsection = document.getElementById('postSubsection');
 
@@ -155,57 +155,72 @@
       document.body.style.overflow = '';
     }
 
-    function showSelectedFile(input) {
-      if (!input.files.length) return;
+    function showSelectedFiles(input) {
+      const selectedFiles = Array.from(input.files);
 
-      const file = input.files[0];
-      const fileUrl = URL.createObjectURL(file);
+      if (!selectedFiles.length) {
+        return;
+      }
+
+      if (selectedFiles.length > MAX_MEDIA_FILES) {
+        alert(`الحد الأقصى المسموح به هو ${MAX_MEDIA_FILES} ملفات فقط.`);
+        input.value = '';
+        postSelectedFile.innerHTML = '';
+        return;
+      }
 
       postSelectedFile.innerHTML = '';
 
-      const removeButton = document.createElement('button');
-      removeButton.type = 'button';
-      removeButton.className = 'post-media-remove';
-      removeButton.setAttribute('aria-label', 'إلغاء المحتوى');
-      removeButton.innerHTML = '<i class="fa-solid fa-xmark" aria-hidden="true"></i>';
+      selectedFiles.forEach((file, index) => {
+        const fileUrl = URL.createObjectURL(file);
 
-      removeButton.addEventListener('click', () => {
-        postImage.value = '';
-        postVideo.value = '';
-        postSelectedFile.innerHTML = '';
-        URL.revokeObjectURL(fileUrl);
+        const mediaItem = document.createElement('div');
+        mediaItem.className = 'post-media-item';
+
+        const removeButton = document.createElement('button');
+        removeButton.type = 'button';
+        removeButton.className = 'post-media-remove';
+        removeButton.setAttribute('aria-label', 'حذف الوسائط');
+        removeButton.innerHTML = '<i class="fa-solid fa-xmark" aria-hidden="true"></i>';
+
+        removeButton.addEventListener('click', () => {
+          URL.revokeObjectURL(fileUrl);
+          mediaItem.remove();
+
+          const remainingItems = postSelectedFile.querySelectorAll('.post-media-item');
+
+          if (!remainingItems.length) {
+            postMedia.value = '';
+          }
+        });
+
+        mediaItem.appendChild(removeButton);
+
+        if (file.type.startsWith('image/')) {
+          const preview = document.createElement('img');
+          preview.src = fileUrl;
+          preview.alt = `معاينة الصورة ${index + 1}`;
+          preview.className = 'post-media-preview';
+          mediaItem.appendChild(preview);
+        } else if (file.type.startsWith('video/')) {
+          const preview = document.createElement('video');
+          preview.src = fileUrl;
+          preview.className = 'post-media-preview';
+          preview.controls = true;
+          preview.preload = 'metadata';
+          mediaItem.appendChild(preview);
+        }
+
+        postSelectedFile.appendChild(mediaItem);
       });
-
-      postSelectedFile.appendChild(removeButton);
-
-      if (file.type.startsWith('image/')) {
-        const preview = document.createElement('img');
-        preview.src = fileUrl;
-        preview.alt = 'معاينة الصورة';
-        preview.className = 'post-media-preview';
-        postSelectedFile.appendChild(preview);
-      } else if (file.type.startsWith('video/')) {
-        const preview = document.createElement('video');
-        preview.src = fileUrl;
-        preview.className = 'post-media-preview';
-        preview.controls = true;
-        preview.preload = 'metadata';
-        postSelectedFile.appendChild(preview);
-      }
     }
 
     createPostButton.addEventListener('click', openPostModal);
     postModalClose.addEventListener('click', closePostModal);
     postModalOverlay.addEventListener('click', closePostModal);
 
-    postImage.addEventListener('change', () => {
-      postVideo.value = '';
-      showSelectedFile(postImage);
-    });
-
-    postVideo.addEventListener('change', () => {
-      postImage.value = '';
-      showSelectedFile(postVideo);
+    postMedia.addEventListener('change', () => {
+      showSelectedFiles(postMedia);
     });
 
     document.addEventListener('keydown', (event) => {

@@ -995,3 +995,18 @@ a {
 .post-media-remove:hover {
   background: rgba(0, 0, 0, 0.9);
 }
+
+.post-media-item {
+  position: relative;
+  width: 100%;
+  margin-top: 12px;
+}
+
+.post-media-item .post-media-remove {
+  top: 8px;
+  right: 8px;
+}
+
+.post-media-item .post-media-preview {
+  margin-top: 0;
+}
