@@ -110,16 +110,6 @@
 
       <button
         type="button"
-        class="media-viewer-delete"
-        id="mediaViewerDelete"
-        aria-label="حذف الوسائط الحالية"
-        title="حذف الوسائط الحالية"
-      >
-        <i class="fa-solid fa-trash" aria-hidden="true"></i>
-      </button>
-
-      <button
-        type="button"
         class="media-viewer-prev"
         id="mediaViewerPrev"
         aria-label="الوسائط السابقة"
@@ -158,7 +148,6 @@
     const mediaViewerPrev = document.getElementById('mediaViewerPrev');
     const mediaViewerNext = document.getElementById('mediaViewerNext');
     const mediaViewerStage = document.getElementById('mediaViewerStage');
-    const mediaViewerDelete = document.getElementById('mediaViewerDelete');
 
     let mediaViewerIndex = 0;
 
@@ -262,11 +251,10 @@
       renderMediaViewer();
     }
 
-    mediaViewerClose.addEventListener('click', closeMediaViewer);
+    mediaViewerClose.addEventListener('click', deleteCurrentMedia);
     mediaViewerOverlay.addEventListener('click', closeMediaViewer);
     mediaViewerPrev.addEventListener('click', showPreviousMedia);
     mediaViewerNext.addEventListener('click', showNextMedia);
-    mediaViewerDelete.addEventListener('click', deleteCurrentMedia);
 
     document.addEventListener('keydown', (event) => {
       if (!mediaViewer.classList.contains('open')) {
