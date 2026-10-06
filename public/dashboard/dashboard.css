@@ -1199,7 +1199,8 @@ a {
 
 .media-viewer-close {
   top: 20px;
-  right: 20px;
+  left: 20px;
+  right: auto;
 }
 
 .media-viewer-prev {
@@ -1228,7 +1229,8 @@ a {
 
   .media-viewer-close {
     top: 12px;
-    right: 12px;
+    left: 12px;
+    right: auto;
   }
 
   .media-viewer-prev {
@@ -1244,32 +1246,3 @@ a {
   display: none;
 }
 
-/* زر حذف الوسائط داخل العارض */
-.media-viewer-delete {
-  position: absolute;
-  z-index: 5;
-  top: 20px;
-  left: 20px;
-  width: 44px;
-  height: 44px;
-  border: 0;
-  border-radius: 50%;
-  background: rgba(220, 38, 38, 0.85);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 17px;
-}
-
-.media-viewer-delete:hover {
-  background: rgba(220, 38, 38, 1);
-}
-
-@media (max-width: 600px) {
-  .media-viewer-delete {
-    top: 12px;
-    left: 12px;
-  }
-}
