@@ -1286,3 +1286,37 @@ a {
 .post-content-media-box .post-selected-file:empty {
   display: none;
 }
+
+/* زر الرجوع داخل عارض الوسائط */
+.media-viewer-back {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 5;
+  height: 44px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.media-viewer-back:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+@media (max-width: 600px) {
+  .media-viewer-back {
+    top: 12px;
+    right: 12px;
+    height: 42px;
+    padding: 0 14px;
+  }
+}
