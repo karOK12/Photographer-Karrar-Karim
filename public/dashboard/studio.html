@@ -103,6 +103,7 @@
     const postMedia = document.getElementById('postMedia');
     const postSelectedFile = document.getElementById('postSelectedFile');
     const MAX_MEDIA_FILES = 10;
+    let selectedMediaFiles = [];
     const postSection = document.getElementById('postSection');
     const postSubsection = document.getElementById('postSubsection');
 
@@ -156,11 +157,13 @@
     }
 
     function showSelectedFiles(input) {
-      const selectedFiles = Array.from(input.files);
+      selectedMediaFiles = Array.from(input.files);
 
-      if (!selectedFiles.length) {
+      if (!selectedMediaFiles.length) {
         return;
       }
+
+      const selectedFiles = selectedMediaFiles;
 
       if (selectedFiles.length > MAX_MEDIA_FILES) {
         alert(`الحد الأقصى المسموح به هو ${MAX_MEDIA_FILES} ملفات فقط.`);
@@ -171,7 +174,10 @@
 
       postSelectedFile.innerHTML = '';
 
-      selectedFiles.forEach((file, index) => {
+      const visibleFiles = selectedFiles.slice(0, 4);
+      const extraCount = selectedFiles.length - visibleFiles.length;
+
+      visibleFiles.forEach((file, index) => {
         const fileUrl = URL.createObjectURL(file);
 
         const mediaItem = document.createElement('div');
@@ -185,13 +191,22 @@
 
         removeButton.addEventListener('click', () => {
           URL.revokeObjectURL(fileUrl);
+
+          selectedMediaFiles = selectedMediaFiles.filter(
+            (_, fileIndex) => fileIndex !== index
+          );
+
+          const dataTransfer = new DataTransfer();
+
+          selectedMediaFiles.forEach((selectedFile) => {
+            dataTransfer.items.add(selectedFile);
+          });
+
+          postMedia.files = dataTransfer.files;
+
           mediaItem.remove();
 
-          const remainingItems = postSelectedFile.querySelectorAll('.post-media-item');
-
-          if (!remainingItems.length) {
-            postMedia.value = '';
-          }
+          showSelectedFiles(postMedia);
         });
 
         mediaItem.appendChild(removeButton);
@@ -209,6 +224,13 @@
           preview.controls = true;
           preview.preload = 'metadata';
           mediaItem.appendChild(preview);
+        }
+
+        if (index === visibleFiles.length - 1 && extraCount > 0) {
+          const overlay = document.createElement('div');
+          overlay.className = 'post-media-more';
+          overlay.textContent = `+${extraCount}`;
+          mediaItem.appendChild(overlay);
         }
 
         postSelectedFile.appendChild(mediaItem);
