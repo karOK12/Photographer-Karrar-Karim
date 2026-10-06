@@ -163,6 +163,21 @@
 
       postSelectedFile.innerHTML = '';
 
+      const removeButton = document.createElement('button');
+      removeButton.type = 'button';
+      removeButton.className = 'post-media-remove';
+      removeButton.setAttribute('aria-label', 'إلغاء المحتوى');
+      removeButton.innerHTML = '<i class="fa-solid fa-xmark" aria-hidden="true"></i>';
+
+      removeButton.addEventListener('click', () => {
+        postImage.value = '';
+        postVideo.value = '';
+        postSelectedFile.innerHTML = '';
+        URL.revokeObjectURL(fileUrl);
+      });
+
+      postSelectedFile.appendChild(removeButton);
+
       if (file.type.startsWith('image/')) {
         const preview = document.createElement('img');
         preview.src = fileUrl;
