@@ -110,6 +110,16 @@
 
       <button
         type="button"
+        class="media-viewer-delete"
+        id="mediaViewerDelete"
+        aria-label="حذف الوسائط الحالية"
+        title="حذف الوسائط الحالية"
+      >
+        <i class="fa-solid fa-trash" aria-hidden="true"></i>
+      </button>
+
+      <button
+        type="button"
         class="media-viewer-prev"
         id="mediaViewerPrev"
         aria-label="الوسائط السابقة"
@@ -148,6 +158,7 @@
     const mediaViewerPrev = document.getElementById('mediaViewerPrev');
     const mediaViewerNext = document.getElementById('mediaViewerNext');
     const mediaViewerStage = document.getElementById('mediaViewerStage');
+    const mediaViewerDelete = document.getElementById('mediaViewerDelete');
 
     let mediaViewerIndex = 0;
 
@@ -192,6 +203,41 @@
       document.body.style.overflow = '';
     }
 
+    function deleteCurrentMedia() {
+      if (!selectedMediaFiles.length) {
+        return;
+      }
+
+      const deletedFile = selectedMediaFiles[mediaViewerIndex];
+
+      if (!deletedFile) {
+        return;
+      }
+
+      selectedMediaFiles.splice(mediaViewerIndex, 1);
+
+      const dataTransfer = new DataTransfer();
+
+      selectedMediaFiles.forEach((file) => {
+        dataTransfer.items.add(file);
+      });
+
+      postMedia.files = dataTransfer.files;
+
+      if (!selectedMediaFiles.length) {
+        closeMediaViewer();
+        showSelectedFiles(postMedia);
+        return;
+      }
+
+      if (mediaViewerIndex >= selectedMediaFiles.length) {
+        mediaViewerIndex = selectedMediaFiles.length - 1;
+      }
+
+      showSelectedFiles(postMedia);
+      renderMediaViewer();
+    }
+
     function showPreviousMedia() {
       if (selectedMediaFiles.length <= 1) {
         return;
@@ -220,6 +266,7 @@
     mediaViewerOverlay.addEventListener('click', closeMediaViewer);
     mediaViewerPrev.addEventListener('click', showPreviousMedia);
     mediaViewerNext.addEventListener('click', showNextMedia);
+    mediaViewerDelete.addEventListener('click', deleteCurrentMedia);
 
     document.addEventListener('keydown', (event) => {
       if (!mediaViewer.classList.contains('open')) {
