@@ -154,3 +154,26 @@ document.addEventListener('DOMContentLoaded', () => {
     item.addEventListener('click', closeSideMenu);
   });
 });
+
+const logoutBtn = document.getElementById('logoutBtn');
+
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', async () => {
+    try {
+      const response = await fetch('/api/auth/logout', {
+        method: 'POST',
+        credentials: 'include'
+      });
+
+      if (response.ok) {
+        window.location.href = '/login.html';
+        return;
+      }
+
+      alert('تعذر تسجيل الخروج');
+    } catch (error) {
+      console.error('Logout error:', error);
+      alert('حدث خطأ أثناء تسجيل الخروج');
+    }
+  });
+}
