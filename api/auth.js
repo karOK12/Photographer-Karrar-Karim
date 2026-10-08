@@ -275,7 +275,7 @@ router.get('/google/callback', async (req, res) => {
 
     setAuthCookie(res, user);
 
-    return res.redirect('/');
+    return res.redirect('/dashboard');
 
   } catch (error) {
     console.error('❌ Google OAuth error:', error.message);
