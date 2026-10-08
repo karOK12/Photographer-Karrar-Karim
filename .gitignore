@@ -10,3 +10,4 @@ env.
 .env.production
 
 .vercel-prod.env
+.env*
