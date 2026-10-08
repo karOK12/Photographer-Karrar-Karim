@@ -54,6 +54,15 @@
           <option value="">اختر القسم الفرعي</option>
         </select>
 
+        <label class="post-field-label" for="postTitle">عنوان المنشور</label>
+        <input
+          type="text"
+          id="postTitle"
+          class="post-input"
+          maxlength="255"
+          placeholder="اكتب عنوان المنشور..."
+        >
+
         <label class="post-field-label" for="postContent">وصف المنشور</label>
 
         <div class="post-content-media-box">
@@ -136,6 +145,9 @@
     let selectedMediaFiles = [];
     const postSection = document.getElementById('postSection');
     const postSubsection = document.getElementById('postSubsection');
+    const postTitle = document.getElementById('postTitle');
+    const postContent = document.getElementById('postContent');
+    const publishPostButton = document.getElementById('publishPostButton');
 
     const mediaViewer = document.getElementById('mediaViewer');
     const mediaViewerOverlay = document.getElementById('mediaViewerOverlay');
@@ -421,6 +433,68 @@
 
     postMedia.addEventListener('change', () => {
       showSelectedFiles(postMedia);
+    });
+
+
+    publishPostButton.addEventListener('click', async () => {
+      const title = postTitle.value.trim();
+      const section = postSection.value.trim();
+      const subsection = postSubsection.value.trim();
+      const content = postContent.value.trim();
+
+      if (!title) {
+        alert('يرجى كتابة عنوان المنشور');
+        postTitle.focus();
+        return;
+      }
+
+      if (!section) {
+        alert('يرجى اختيار القسم');
+        postSection.focus();
+        return;
+      }
+
+      publishPostButton.disabled = true;
+
+      const originalText = publishPostButton.innerHTML;
+      publishPostButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>جاري النشر...</span>';
+
+      try {
+        const response = await fetch('/api/posts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include',
+          body: JSON.stringify({
+            title,
+            section,
+            subsection,
+            content
+          })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(data.message || 'تعذر نشر المنشور');
+        }
+
+        alert('تم نشر المنشور بنجاح');
+
+        postTitle.value = '';
+        postContent.value = '';
+        postSection.value = 'studio';
+        updateSubsections();
+
+        closePostModal();
+      } catch (error) {
+        console.error('Publish post error:', error);
+        alert(error.message || 'حدث خطأ أثناء نشر المنشور');
+      } finally {
+        publishPostButton.disabled = false;
+        publishPostButton.innerHTML = originalText;
+      }
     });
 
     document.addEventListener('keydown', (event) => {
