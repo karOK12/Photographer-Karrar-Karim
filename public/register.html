@@ -1,1031 +1,1986 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#080808">
-  <title>التسجيل - كرار كريم</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الملف الشخصي</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      min-height: 100%;
-    }
+body {
+  margin: 0;
+  background: #0b1120;
+  color: white;
+  font-family: Arial, sans-serif;
+}
 
-    body {
-      min-height: 100dvh;
-      font-family:
-        Arial,
-        Tahoma,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        sans-serif;
-    }
+.container {
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  padding: 12px;
+}
 
-    .register-card input,
-    .register-card button {
-      max-width: 100%;
-      box-sizing: border-box;
-    }
+/* الغلاف */
+.cover {
+  width: 100%;
+  height: 240px;
+  position: relative;
+  overflow: hidden;
+  background: #1f2937;
+  border-radius: 12px;
+  touch-action: none;
+}
 
-    @media (max-width: 400px) {
-      .register-card {
-        width: calc(100vw - 20px) !important;
-        max-width: none !important;
-      }
-    }
+.cover img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: none;
+  user-select: none;
+  cursor: grab;
+}
 
-    @media (max-width: 360px) {
-      .register-card {
-        width: calc(100vw - 12px) !important;
-      }
-    }
-  </style>
+.cover-camera {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0,0,0,.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* الأزرار */
+button {
+  font-family: inherit;
+}
+
+.cover-actions {
+  margin-top: 8px;
+  position: relative;
+  display: inline-block;
+  z-index: 100;
+}
+
+.options-btn {
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: #1f2937;
+  color: white;
+  border: 1px solid #374151;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;
+  display: flex;
+  gap: 6px;
+  background: #111827;
+  padding: 7px;
+  border-radius: 9px;
+  border: 1px solid #374151;
+  box-shadow: 0 4px 12px rgba(0,0,0,.35);
+}
+
+.menu button {
+  padding: 5px 10px;
+  border-radius: 7px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 11px;
+}
+
+.edit-btn {
+  background: #f59e0b;
+  color: #000;
+}
+
+.save-btn {
+  background: #22c55e;
+  color: white;
+}
+
+/* الملف الشخصي */
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -55px;
+  position: relative;
+  z-index: 10;
+}
+
+.profile-image-wrapper {
+  position: relative;
+}
+
+.profile-image {
+  width: 115px;
+  height: 115px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 5px solid #111827;
+  background: #374151;
+  box-shadow: 0 4px 15px rgba(0,0,0,.4);
+}
+
+.profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-upload {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #1877f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  border: 3px solid #111827;
+}
+
+.profile h2 {
+  margin-top: 10px;
+  font-size: 22px;
+}
+
+/* المعلومات */
+.info {
+  background: #111827;
+  padding: 15px;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+.info h3 {
+  margin-top: 18px;
+}
+
+.field {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.field-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.label {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.value {
+  font-size: 14px;
+  color: #9ca3af;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.value.has-value {
+  color: white;
+}
+
+.arrow {
+  color: #9ca3af;
+  margin-right: 10px;
+}
+
+/* القوائم */
+.dropdown {
+  margin-top: 8px;
+  background: #111827;
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dropdown button {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #374151;
+  background: #1f2937;
+  color: white;
+  cursor: pointer;
+  text-align: right;
+}
+
+.dropdown button.active {
+  background: #1877f2;
+}
+
+/* الهوايات */
+.hobbies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+  background: #111827;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.hobby {
+  padding: 6px 10px;
+  border-radius: 16px;
+  border: 1px solid #374151;
+  background: #1f2937;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.hobby.active {
+  background: #1877f2;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-box {
+  width: 90%;
+  max-width: 420px;
+  background: #111827;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.input,
+textarea,
+select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 6px;
+  border-radius: 8px;
+  border: 1px solid #374151;
+  background: #1f2937;
+  color: white;
+  font-size: 14px;
+  outline: none;
+}
+
+textarea {
+  height: 120px;
+  resize: none;
+}
+
+.modal-save {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  background: #1877f2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* البحث */
+.search-results {
+  margin-top: 10px;
+  background: #1f2937;
+  border-radius: 8px;
+  overflow: hidden;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.search-result {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #374151;
+}
+
+/* Progress */
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,.12);
+  z-index: 999999;
+  display: none;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background: #22c55e;
+  transition: width .2s linear;
+}
+</style>
 </head>
 
 <body>
 
-  <main
-    dir="rtl"
-    style="
-      min-height:100dvh;
-      width:100%;
-      background:linear-gradient(135deg,#ffffff 0%,#f3f3f3 22%,#171717 58%,#050505 100%);
-      color:#fff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:10px;
-      box-sizing:border-box;
-      overflow-x:hidden;
-      position:relative;
-      overflow-y:auto;
-      visibility:visible;
-      font-family:Arial,Tahoma,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-    "
-  >
+<div class="container">
+
+  <!-- الغلاف -->
+  <div class="cover" id="cover">
+
+    <img id="coverImage">
+
+    <label class="cover-camera">
+      📷
+      <input
+        type="file"
+        id="coverUpload"
+        hidden
+        accept="image/*"
+      >
+    </label>
+
+  </div>
+
+  <!-- خيارات الغلاف -->
+  <div class="cover-actions">
+
+    <button
+      class="options-btn"
+      id="optionsButton"
+    >
+      ⚙️ عرض الخيارات ▼
+    </button>
 
     <div
-      style="
-        position:absolute;
-        width:420px;
-        height:420px;
-        border-radius:50%;
-        background:rgba(37,99,235,.08);
-        filter:blur(70px);
-        top:-180px;
-        right:-120px;
-        pointer-events:none;
-      "
-    ></div>
-
-    <div
-      style="
-        position:absolute;
-        width:380px;
-        height:380px;
-        border-radius:50%;
-        background:rgba(139,92,246,.07);
-        filter:blur(80px);
-        bottom:-180px;
-        left:-120px;
-        pointer-events:none;
-      "
-    ></div>
-
-    <section
-      class="register-card"
-      style="
-        width:calc(100vw - 24px);
-        max-width:420px;
-        min-width:0;
-        position:relative;
-        z-index:2;
-        background:linear-gradient(145deg,#ffffff 0%,#f8fbff 55%,#eaf3ff 100%);
-        border:1px solid rgba(255,255,255,.12);
-        border-radius:18px;
-        padding:18px;
-        box-sizing:border-box;
-        overflow:hidden;
-        box-shadow:0 18px 55px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.025);
-        backdrop-filter:blur(18px);
-      "
+      class="menu"
+      id="coverMenu"
+      style="display:none"
     >
 
-      <!-- الشعار والعنوان -->
-
-      <div
-        style="
-          text-align:center;
-          margin-bottom:17px;
-        "
+      <button
+        class="edit-btn"
+        id="editCover"
       >
+        ✏️ تعديل
+      </button>
 
-        <div
-          style="
-            width:72px;
-            height:72px;
-            margin:0 auto 9px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            overflow:hidden;
-            border-radius:50%;
-          "
+      <button
+        class="save-btn"
+        id="saveCover"
+      >
+        💾 حفظ
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- Progress -->
+  <div class="progress" id="progress">
+    <div
+      class="progress-bar"
+      id="progressBar"
+    ></div>
+  </div>
+
+  <!-- الصورة الشخصية -->
+  <div class="profile">
+
+    <div class="profile-image-wrapper">
+
+      <div class="profile-image">
+
+        <img
+          id="profileImage"
+          src="/assets/images/profile.jpg"
         >
-
-          <img
-            src="https://c.top4top.io/p_3928dg86x1.jpg"
-            alt="كرار كريم"
-            style="
-              width:100%;
-              height:100%;
-              object-fit:cover;
-              display:block;
-            "
-          >
-
-        </div>
-
-        <h1
-          style="
-            color:#173b8f;
-            margin:0;
-            font-size:22px;
-            font-weight:800;
-            letter-spacing:-.4px;
-          "
-        >
-          كرار كريم
-        </h1>
-
-        <div
-          style="
-            width:36px;
-            height:2px;
-            border-radius:10px;
-            background:linear-gradient(90deg,#2563eb,#8b5cf6);
-            margin:8px auto 0;
-          "
-        ></div>
 
       </div>
 
-
-      <!-- نموذج التسجيل -->
-
-      <form id="registerForm">
-
-        <!-- الاسم الكامل -->
-
-        <div style="margin-bottom:12px;">
-
-          <label
-            for="fullName"
-            style="
-              display:block;
-              font-size:13px;
-              font-weight:600;
-              color:#173b8f;
-              margin-bottom:8px;
-            "
-          >
-            الاسم الكامل
-          </label>
-
-          <div style="position:relative;">
-
-            <span
-              style="
-                position:absolute;
-                right:13px;
-                top:50%;
-                transform:translateY(-50%);
-                color:#64748b;
-                font-size:18px;
-                pointer-events:none;
-              "
-            >
-              👤
-            </span>
-
-            <input
-              id="fullName"
-              name="fullName"
-              type="text"
-              autocomplete="name"
-              maxlength="150"
-              placeholder="أدخل اسمك الكامل"
-              required
-              style="
-                width:100%;
-                height:47px;
-                box-sizing:border-box;
-                border-radius:11px;
-                border:1px solid #273449;
-                background:#0b1220;
-                color:#fff;
-                padding:0 44px 0 13px;
-                outline:none;
-                font-size:13px;
-              "
-            >
-
-          </div>
-
-        </div>
-
-
-        <!-- البريد الإلكتروني -->
-
-        <div style="margin-bottom:12px;">
-
-          <label
-            for="email"
-            style="
-              display:block;
-              font-size:13px;
-              font-weight:600;
-              color:#173b8f;
-              margin-bottom:8px;
-            "
-          >
-            البريد الإلكتروني
-          </label>
-
-          <div style="position:relative;">
-
-            <span
-              style="
-                position:absolute;
-                right:13px;
-                top:50%;
-                transform:translateY(-50%);
-                color:#64748b;
-                font-size:18px;
-                pointer-events:none;
-              "
-            >
-              ✉️
-            </span>
-
-            <input
-              id="email"
-              name="email"
-              type="email"
-              autocomplete="email"
-              maxlength="255"
-              placeholder="example@email.com"
-              required
-              style="
-                width:100%;
-                height:47px;
-                box-sizing:border-box;
-                border-radius:11px;
-                border:1px solid #273449;
-                background:#0b1220;
-                color:#fff;
-                padding:0 44px 0 13px;
-                outline:none;
-                font-size:13px;
-              "
-            >
-
-          </div>
-
-        </div>
-
-
-        <!-- كلمة المرور -->
-
-        <div style="margin-bottom:12px;">
-
-          <label
-            for="password"
-            style="
-              display:block;
-              font-size:13px;
-              font-weight:600;
-              color:#173b8f;
-              margin-bottom:8px;
-            "
-          >
-            كلمة المرور
-          </label>
-
-          <div style="position:relative;">
-
-            <span
-              style="
-                position:absolute;
-                right:13px;
-                top:50%;
-                transform:translateY(-50%);
-                color:#64748b;
-                font-size:17px;
-                pointer-events:none;
-              "
-            >
-              🔒
-            </span>
-
-            <input
-              id="password"
-              name="password"
-              type="password"
-              autocomplete="new-password"
-              minlength="8"
-              placeholder="أدخل كلمة المرور"
-              required
-              style="
-                width:100%;
-                height:47px;
-                box-sizing:border-box;
-                border-radius:11px;
-                border:1px solid #273449;
-                background:#0b1220;
-                color:#fff;
-                padding:0 44px 0 46px;
-                outline:none;
-                font-size:13px;
-              "
-            >
-
-            <button
-              type="button"
-              id="togglePassword"
-              aria-label="إظهار كلمة المرور"
-              style="
-                position:absolute;
-                left:8px;
-                top:50%;
-                transform:translateY(-50%);
-                width:32px;
-                height:32px;
-                border:none;
-                background:transparent;
-                color:#64748b;
-                cursor:pointer;
-                display:flex;
-                align-items:center;
-                justify-content:center;
-              "
-            >
-
-              <svg
-                id="eyeIcon"
-                width="19"
-                height="19"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path>
-                <circle cx="12" cy="12" r="3"></circle>
-              </svg>
-
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <!-- تأكيد كلمة المرور -->
-
-        <div style="margin-bottom:13px;">
-
-          <label
-            for="confirmPassword"
-            style="
-              display:block;
-              font-size:13px;
-              font-weight:600;
-              color:#173b8f;
-              margin-bottom:8px;
-            "
-          >
-            تأكيد كلمة المرور
-          </label>
-
-          <div style="position:relative;">
-
-            <span
-              style="
-                position:absolute;
-                right:13px;
-                top:50%;
-                transform:translateY(-50%);
-                color:#64748b;
-                font-size:17px;
-                pointer-events:none;
-              "
-            >
-              🔐
-            </span>
-
-            <input
-              id="confirmPassword"
-              name="confirmPassword"
-              type="password"
-              autocomplete="new-password"
-              minlength="8"
-              placeholder="أعد كتابة كلمة المرور"
-              required
-              style="
-                width:100%;
-                height:47px;
-                box-sizing:border-box;
-                border-radius:11px;
-                border:1px solid #273449;
-                background:#0b1220;
-                color:#fff;
-                padding:0 44px 0 46px;
-                outline:none;
-                font-size:13px;
-              "
-            >
-
-            <button
-              type="button"
-              id="toggleConfirmPassword"
-              aria-label="إظهار تأكيد كلمة المرور"
-              style="
-                position:absolute;
-                left:8px;
-                top:50%;
-                transform:translateY(-50%);
-                width:32px;
-                height:32px;
-                border:none;
-                background:transparent;
-                color:#64748b;
-                cursor:pointer;
-                display:flex;
-                align-items:center;
-                justify-content:center;
-              "
-            >
-
-              <svg
-                id="confirmEyeIcon"
-                width="19"
-                height="19"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path>
-                <circle cx="12" cy="12" r="3"></circle>
-              </svg>
-
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <!-- زر التسجيل -->
-
-        <button
-          type="submit"
-          id="registerButton"
-          style="
-            width:100%;
-            height:48px;
-            border:none;
-            border-radius:11px;
-            background:linear-gradient(135deg,#2563eb,#4f46e5);
-            color:#fff;
-            font-size:14px;
-            font-weight:800;
-            cursor:pointer;
-            box-shadow:0 8px 20px rgba(37,99,235,.22);
-          "
+      <label class="profile-upload">
+        +
+        <input
+          type="file"
+          hidden
+          accept="image/*"
+          id="profileUpload"
         >
-          تسجيل الحساب
-        </button>
+      </label>
 
-      </form>
+    </div>
 
+    <h2>الملف الشخصي</h2>
 
-      <!-- الرسالة -->
+  </div>
 
-      <div
-        id="message"
-        role="alert"
-        style="
-          display:none;
-          margin-top:11px;
-          padding:9px 11px;
-          border-radius:10px;
-          text-align:center;
-          font-size:12px;
-        "
-      ></div>
+  <!-- المعلومات -->
+  <div class="info">
 
+    <h3>المعلومات الشخصية</h3>
 
-      <!-- تسجيل الدخول + Google -->
+    <!-- الاسم -->
+    <h3>الاسم الكامل</h3>
 
-      <div
-        style="
-          width:100%;
-          margin-top:14px;
-          box-sizing:border-box;
-        "
-      >
+    <input
+      class="input"
+      id="fullNameInput"
+      placeholder="اكتب الاسم الكامل"
+      autocomplete="name"
+    >
 
-        <div
-          style="
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            flex-wrap:wrap;
-            gap:5px;
-            color:#94a3b8;
-            font-size:12px;
-            line-height:20px;
-            text-align:center;
-          "
+    <!-- اللقب -->
+    <h3>اللقب</h3>
+
+    <input
+      class="input"
+      id="nicknameInput"
+      placeholder="اكتب اللقب"
+    >
+
+    <!-- تاريخ الميلاد -->
+    <h3>تاريخ الميلاد</h3>
+
+    <div
+      class="field"
+      id="dobButton"
+    >
+      <div class="field-content">
+        <span class="label">تاريخ الميلاد</span>
+        <span
+          class="value"
+          id="dobValue"
         >
+          غير مضاف
+        </span>
+      </div>
+      <span class="arrow">▼</span>
+    </div>
 
-          <span>لديك حساب بالفعل؟</span>
+    <div
+      class="dropdown"
+      id="dobDropdown"
+      style="display:none"
+    >
 
-          <button
-            type="button"
-            onclick="window.location.href='/login.html';"
-            style="
-              border:none;
-              background:transparent;
-              color:#173b8f;
-              cursor:pointer;
-              font-size:12px;
-              font-weight:800;
-              padding:2px 4px;
-              margin:0;
-              white-space:nowrap;
-            "
-          >
-            تسجيل الدخول
-          </button>
+      <select id="day">
+        <option value="">اليوم</option>
+      </select>
 
-        </div>
+      <select id="month">
+        <option value="">الشهر</option>
+      </select>
+
+      <select id="year">
+        <option value="">السنة</option>
+      </select>
+
+      <button id="saveDob">
+        حفظ
+      </button>
+
+    </div>
 
 
-        <!-- الفاصل -->
+    <!-- الجنس -->
+    <h3>الجنس</h3>
 
-        <div
-          style="
-            width:100%;
-            display:flex;
-            align-items:center;
-            gap:9px;
-            margin:15px 0 11px;
-            box-sizing:border-box;
-          "
+    <div
+      class="field"
+      id="genderButton"
+    >
+      <div class="field-content">
+        <span class="label">الجنس</span>
+        <span
+          class="value"
+          id="genderValue"
         >
+          غير مضاف
+        </span>
+      </div>
+      <span class="arrow">▼</span>
+    </div>
 
-          <span
-            style="
-              flex:1 1 0;
-              min-width:0;
-              height:1px;
-              background:#cbd5e1;
-            "
-          ></span>
+    <div
+      class="dropdown"
+      id="genderDropdown"
+      style="display:none"
+    >
 
-          <strong
-            style="
-              flex:0 0 auto;
-              color:#64748b;
-              font-size:12px;
-              font-weight:500;
-              white-space:nowrap;
-            "
-          >
-            أو المتابعة باستخدام
-          </strong>
+      <button data-gender="ذكر">
+        ذكر
+      </button>
 
-          <span
-            style="
-              flex:1 1 0;
-              min-width:0;
-              height:1px;
-              background:#cbd5e1;
-            "
-          ></span>
+      <button data-gender="أنثى">
+        أنثى
+      </button>
 
-        </div>
+    </div>
 
 
-        <!-- Google -->
+    <!-- الهوايات -->
+    <h3>الهوايات</h3>
 
-        <button
-          type="button"
-          onclick="window.location.href='/api/auth/google';"
-          style="
-            width:100%;
-            max-width:100%;
-            height:43px;
-            box-sizing:border-box;
-            border-radius:10px;
-            border:1px solid #cbd5e1;
-            background:#ffffff;
-            color:#1f2937;
-            cursor:pointer;
-            font-size:13px;
-            font-weight:700;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            gap:9px;
-            padding:0 12px;
-            overflow:hidden;
-          "
+    <div
+      class="field"
+      id="hobbiesButton"
+    >
+      <div class="field-content">
+        <span class="label">الهوايات</span>
+        <span
+          class="value"
+          id="hobbiesValue"
         >
+          غير مضاف
+        </span>
+      </div>
+      <span class="arrow">▼</span>
+    </div>
 
-          <span
-            style="
-              width:20px;
-              height:20px;
-              flex:0 0 20px;
-              display:flex;
-              align-items:center;
-              justify-content:center;
-              font-size:17px;
-              font-weight:900;
-              font-family:Arial,sans-serif;
-              color:#4285F4;
-            "
-          >
-            G
-          </span>
+    <div
+      class="hobbies"
+      id="hobbiesContainer"
+      style="display:none"
+    ></div>
 
-          <span
-            style="
-              min-width:0;
-              overflow:hidden;
-              text-overflow:ellipsis;
-              white-space:nowrap;
-            "
-          >
-            متابعة باستخدام Google
-          </span>
 
-        </button>
+    <!-- التعليم -->
+    <h3>التعليم</h3>
 
+    <div
+      class="field"
+      id="educationButton"
+    >
+      <div class="field-content">
+        <span class="label">التعليم</span>
+        <span
+          class="value"
+          id="educationValue"
+        >
+          غير مضاف
+        </span>
+      </div>
+      <span class="arrow">▼</span>
+    </div>
+
+    <div
+      class="dropdown"
+      id="educationDropdown"
+      style="display:none"
+    ></div>
+
+
+    <!-- المهنة -->
+    <h3>المهنة</h3>
+
+    <div
+      class="field"
+      id="jobButton"
+    >
+      <div class="field-content">
+        <span class="label">المهنة</span>
+        <span
+          class="value"
+          id="jobValue"
+        >
+          غير مضاف
+        </span>
+      </div>
+      <span class="arrow">▼</span>
+    </div>
+
+    <div
+      class="dropdown"
+      id="jobDropdown"
+      style="display:none"
+    ></div>
+
+
+    <!-- التواصل -->
+    <h3>معلومات التواصل</h3>
+
+    <div
+      class="field"
+      data-contact="facebook"
+    >
+      <div class="field-content">
+        <span class="label">فيسبوك</span>
+        <span
+          class="value"
+          id="facebookValue"
+        >
+          غير مضاف
+        </span>
+      </div>
+      <span class="arrow">▼</span>
+    </div>
+
+    <div
+      class="field"
+      data-contact="whatsapp"
+    >
+      <div class="field-content">
+        <span class="label">واتساب</span>
+        <span
+          class="value"
+          id="whatsappValue"
+        >
+          غير مضاف
+        </span>
+      </div>
+      <span class="arrow">▼</span>
+    </div>
+
+    <div
+      class="field"
+      data-contact="instagram"
+    >
+      <div class="field-content">
+        <span class="label">انستكرام</span>
+        <span
+          class="value"
+          id="instagramValue"
+        >
+          غير مضاف
+        </span>
+      </div>
+      <span class="arrow">▼</span>
+    </div>
+
+    <div
+      class="field"
+      data-contact="email"
+    >
+      <div class="field-content">
+        <span class="label">البريد الإلكتروني</span>
+        <span
+          class="value"
+          id="emailValue"
+        >
+          غير مضاف
+        </span>
+      </div>
+      <span class="arrow">▼</span>
+    </div>
+
+
+    <!-- الموقع -->
+    <h3>الموقع</h3>
+
+    <div
+      class="field"
+      data-location="current"
+    >
+      <div class="field-content">
+        <span class="label">الموقع الحالي</span>
+        <span
+          class="value"
+          id="currentValue"
+        >
+          غير مضاف
+        </span>
+      </div>
+      <span class="arrow">▼</span>
+    </div>
+
+    <div
+      class="field"
+      data-location="origin"
+    >
+      <div class="field-content">
+        <span class="label">مكان المنشأ</span>
+        <span
+          class="value"
+          id="originValue"
+        >
+          غير مضاف
+        </span>
+      </div>
+      <span class="arrow">▼</span>
+    </div>
+
+
+    <!-- العائلة -->
+    <h3>عدد أفراد العائلة</h3>
+
+    <div
+      class="field"
+      data-modal="familyModal"
+    >
+      <div class="field-content">
+        <span class="label">
+          عدد أفراد العائلة
+        </span>
+
+        <span
+          class="value"
+          id="familyValue"
+        >
+          غير مضاف
+        </span>
       </div>
 
-
-      <!-- التذييل -->
-
-      <div
-        style="
-          text-align:center;
-          margin-top:15px;
-          color:#475569;
-          font-size:10px;
-        "
-      >
-        كرار كريم
-      </div>
-
-    </section>
-
-  </main>
+      <span class="arrow">▼</span>
+    </div>
 
 
-  <script>
+    <!-- السيرة الذاتية -->
+    <h3>السيرة الذاتية</h3>
 
-    const registerForm =
-      document.getElementById("registerForm");
+    <textarea
+      class="input"
+      id="bioInput"
+      placeholder="اكتب نبذة عن نفسك..."
+      style="min-height:120px; resize:vertical;"
+    ></textarea>
 
-    const fullNameInput =
-      document.getElementById("fullName");
-
-    const emailInput =
-      document.getElementById("email");
-
-    const passwordInput =
-      document.getElementById("password");
-
-    const confirmPasswordInput =
-      document.getElementById("confirmPassword");
-
-    const registerButton =
-      document.getElementById("registerButton");
-
-    const message =
-      document.getElementById("message");
+  </div>
+</div>
 
 
-    /* تركيز الحقول */
+<!-- ================= MODALS ================= -->
 
-    [
-      fullNameInput,
-      emailInput,
-      passwordInput,
-      confirmPasswordInput
-    ].forEach((input) => {
 
-      input.addEventListener("focus", () => {
 
-        input.style.borderColor = "#3b82f6";
 
-        input.style.boxShadow =
-          "0 0 0 3px rgba(59,130,246,.12)";
 
-      });
 
-      input.addEventListener("blur", () => {
 
-        input.style.borderColor = "#273449";
+<!-- العائلة -->
+<div class="modal" id="familyModal">
 
-        input.style.boxShadow = "none";
+  <div class="modal-box">
 
-      });
+    <h3>عدد أفراد العائلة</h3>
 
+    <input
+      class="input"
+      type="number"
+      id="familyInput"
+      placeholder="مثال: 5"
+    >
+
+    <button
+      class="modal-save"
+      onclick="saveText('familyCount')"
+    >
+      حفظ
+    </button>
+
+  </div>
+
+</div>
+
+
+
+
+
+<!-- التواصل -->
+<div class="modal" id="contactModal">
+
+  <div class="modal-box">
+
+    <h3 id="contactTitle"></h3>
+
+    <input
+      class="input"
+      id="contactInput"
+    >
+
+    <button
+      class="modal-save"
+      id="contactSave"
+    >
+      حفظ
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- الموقع -->
+<div class="modal" id="locationModal">
+
+  <div class="modal-box">
+
+    <h3 id="locationTitle"></h3>
+
+    <input
+      class="input"
+      id="locationInput"
+      placeholder="ابحث عن مدينة أو منطقة..."
+    >
+
+    <div
+      class="search-results"
+      id="searchResults"
+    ></div>
+
+    <div
+      style="
+        margin-top:10px;
+        font-size:12px;
+        color:#9ca3af
+      "
+    >
+      مثال: بغداد، البصرة، الموصل
+    </div>
+
+    <button
+      class="modal-save"
+      id="locationSave"
+    >
+      حفظ
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const fullName = document.getElementById("fullNameInput");
+  const nickname = document.getElementById("nicknameInput");
+  const bio = document.getElementById("bioInput");
+
+  if (fullName) {
+    fullName.value = localStorage.getItem("fullName") || "";
+    fullName.addEventListener("input", function () {
+      localStorage.setItem("fullName", this.value);
     });
+  }
 
+  if (nickname) {
+    nickname.value = localStorage.getItem("nickname") || "";
+    nickname.addEventListener("input", function () {
+      localStorage.setItem("nickname", this.value);
+    });
+  }
 
-    /* إظهار وإخفاء كلمة المرور */
+  if (bio) {
+    bio.value = localStorage.getItem("bio") || "";
+    bio.addEventListener("input", function () {
+      localStorage.setItem("bio", this.value);
+    });
+  }
 
-    function setupPasswordToggle(
-      input,
-      button,
-      icon
-    ) {
+});
+</script>
 
-      let visible = false;
+<script>
 
-      button.addEventListener("click", () => {
+/* =========================
+   أدوات عامة
+========================= */
 
-        visible = !visible;
+function $(id) {
+  return document.getElementById(id);
+}
 
-        input.type =
-          visible ? "text" : "password";
+function openModal(id) {
+  $(id).classList.add("show");
+}
 
-        button.setAttribute(
-          "aria-label",
-          visible
-            ? "إخفاء كلمة المرور"
-            : "إظهار كلمة المرور"
-        );
+function closeModal(id) {
+  $(id).classList.remove("show");
+}
 
-        if (visible) {
+document.querySelectorAll(".modal").forEach(modal => {
 
-          icon.innerHTML = `
-            <path d="M3 3l18 18"></path>
-            <path d="M10.58 10.58a2 2 0 0 0 2.83 2.83"></path>
-            <path d="M9.88 4.24A10.94 10.94 0 0 1 12 4c5 0 9.27 3.11 11 8-0.67 1.88-1.72 3.5-3.08 4.75"></path>
-            <path d="M6.61 6.61C4.62 7.84 3.07 9.68 2 12c1.73 4.89 6 8 10 8 1.61 0 3.16-.42 4.54-1.17"></path>
-          `;
+  modal.addEventListener("click", e => {
 
-        } else {
-
-          icon.innerHTML = `
-            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path>
-            <circle cx="12" cy="12" r="3"></circle>
-          `;
-
-        }
-
-      });
-
+    if (e.target === modal) {
+      modal.classList.remove("show");
     }
 
+  });
 
-    setupPasswordToggle(
-      passwordInput,
-      document.getElementById("togglePassword"),
-      document.getElementById("eyeIcon")
+});
+
+
+/* =========================
+   تحميل البيانات
+========================= */
+
+const keys = [
+  "fullName",
+  "nickname",
+  "familyCount",
+  "bio",
+  "facebook",
+  "whatsapp",
+  "instagram",
+  "email",
+  "currentLocation",
+  "originLocation",
+  "gender",
+  "education",
+  "job"
+];
+
+function loadData() {
+
+  keys.forEach(key => {
+
+    const value =
+      localStorage.getItem(key) || "";
+
+    updateValue(key, value);
+
+  });
+
+  const hobbies =
+    JSON.parse(
+      localStorage.getItem("hobbies") || "[]"
     );
 
+  selectedHobbies = hobbies;
 
-    setupPasswordToggle(
-      confirmPasswordInput,
-      document.getElementById("toggleConfirmPassword"),
-      document.getElementById("confirmEyeIcon")
+  renderHobbies();
+
+  loadDob();
+
+  loadImages();
+
+}
+
+function updateValue(key, value) {
+
+  let element = null;
+
+  const map = {
+
+    fullName: "fullNameValue",
+    nickname: "nicknameValue",
+    familyCount: "familyValue",
+    bio: "bioValue",
+    facebook: "facebookValue",
+    whatsapp: "whatsappValue",
+    instagram: "instagramValue",
+    email: "emailValue",
+    currentLocation: "currentValue",
+    originLocation: "originValue",
+    gender: "genderValue",
+    education: "educationValue",
+    job: "jobValue"
+
+  };
+
+  element = $(map[key]);
+
+  if (!element) return;
+
+  if (key === "familyCount" && value) {
+
+    element.textContent =
+      value + " أفراد";
+
+  } else {
+
+    element.textContent =
+      value || "غير مضاف";
+
+  }
+
+  element.classList.toggle(
+    "has-value",
+    !!value
+  );
+
+}
+
+
+/* =========================
+   النصوص
+========================= */
+
+function saveText(key) {
+
+  let input;
+
+  if (key === "familyCount")
+    input = $("familyInput");
+
+  const value = input.value.trim();
+
+  localStorage.setItem(key, value);
+
+  updateValue(key, value);
+
+  if (key === "familyCount") {
+    closeModal("familyModal");
+  }
+
+}
+
+
+/* فتح النوافذ */
+
+document
+.querySelectorAll("[data-modal]")
+.forEach(element => {
+
+  element.addEventListener("click", () => {
+
+    const modal =
+      element.dataset.modal;
+
+    const keyMap = {
+
+      familyModal: "familyInput"
+
+    };
+
+    const input =
+      $(keyMap[modal]);
+
+    const key =
+      modal
+      .replace("Modal","");
+
+    input.value =
+      localStorage.getItem(key) || "";
+
+    openModal(modal);
+
+  });
+
+});
+
+
+/* =========================
+   تاريخ الميلاد
+========================= */
+
+for (let i = 1; i <= 31; i++) {
+
+  const option =
+    document.createElement("option");
+
+  option.value = i;
+  option.textContent = i;
+
+  $("day").appendChild(option);
+
+}
+
+for (let i = 1; i <= 12; i++) {
+
+  const option =
+    document.createElement("option");
+
+  option.value = i;
+  option.textContent = i;
+
+  $("month").appendChild(option);
+
+}
+
+for (let i = 2026; i >= 1946; i--) {
+
+  const option =
+    document.createElement("option");
+
+  option.value = i;
+  option.textContent = i;
+
+  $("year").appendChild(option);
+
+}
+
+function loadDob() {
+
+  const dob =
+    localStorage.getItem("dob");
+
+  if (!dob) return;
+
+  const parts =
+    dob.split("/");
+
+  if (parts.length !== 3)
+    return;
+
+  $("day").value = parts[0];
+  $("month").value = parts[1];
+  $("year").value = parts[2];
+
+  $("dobValue").textContent = dob;
+  $("dobValue").classList.add("has-value");
+
+}
+
+$("dobButton").onclick = () => {
+
+  const dropdown =
+    $("dobDropdown");
+
+  dropdown.style.display =
+    dropdown.style.display === "none"
+      ? "flex"
+      : "none";
+
+};
+
+$("saveDob").onclick = () => {
+
+  const day = $("day").value;
+  const month = $("month").value;
+  const year = $("year").value;
+
+  if (!day || !month || !year)
+    return;
+
+  const dob =
+    `${day}/${month}/${year}`;
+
+  localStorage.setItem(
+    "dob",
+    dob
+  );
+
+  $("dobValue").textContent = dob;
+  $("dobValue").classList.add("has-value");
+
+  $("dobDropdown").style.display =
+    "none";
+
+};
+
+
+/* =========================
+   الجنس
+========================= */
+
+$("genderButton").onclick = () => {
+
+  const dropdown =
+    $("genderDropdown");
+
+  dropdown.style.display =
+    dropdown.style.display === "none"
+      ? "flex"
+      : "none";
+
+};
+
+document
+.querySelectorAll("[data-gender]")
+.forEach(button => {
+
+  button.onclick = () => {
+
+    const value =
+      button.dataset.gender;
+
+    localStorage.setItem(
+      "gender",
+      value
     );
 
-
-    /* التسجيل الحقيقي */
-
-    registerForm.addEventListener(
-      "submit",
-      async (event) => {
-
-        event.preventDefault();
-
-        message.style.display = "none";
-        message.textContent = "";
-
-        const fullName =
-          fullNameInput.value.trim();
-
-        const email =
-          emailInput.value.trim();
-
-        const password =
-          passwordInput.value;
-
-        const confirmPassword =
-          confirmPasswordInput.value;
-
-
-        if (
-          !fullName ||
-          !email ||
-          !password ||
-          !confirmPassword
-        ) {
-
-          showMessage(
-            "يرجى إكمال جميع الحقول",
-            false
-          );
-
-          return;
-        }
-
-
-        if (password.length < 8) {
-
-          showMessage(
-            "كلمة المرور يجب أن تكون 8 أحرف على الأقل",
-            false
-          );
-
-          return;
-        }
-
-
-        if (password !== confirmPassword) {
-
-          showMessage(
-            "كلمتا المرور غير متطابقتين",
-            false
-          );
-
-          return;
-        }
-
-
-        try {
-
-          registerButton.disabled = true;
-
-          registerButton.textContent =
-            "جارِ التسجيل...";
-
-          registerButton.style.background =
-            "#334155";
-
-          registerButton.style.cursor =
-            "not-allowed";
-
-          registerButton.style.boxShadow =
-            "none";
-
-
-          const response = await fetch(
-            "/api/auth/register",
-            {
-              method: "POST",
-
-              headers: {
-                "Content-Type": "application/json"
-              },
-
-              body: JSON.stringify({
-                fullName: fullName,
-                email: email,
-                password: password
-              })
-            }
-          );
-
-
-          const data =
-            await response.json();
-
-
-          if (!response.ok || !data?.success) {
-
-            showMessage(
-              data?.message ||
-              "تعذر إتمام التسجيل",
-              false
-            );
-
-            return;
-          }
-
-
-          showMessage(
-            "تم التسجيل بنجاح",
-            true
-          );
-
-
-          registerForm.reset();
-
-
-          setTimeout(() => {
-
-            window.location.href =
-              "/login.html";
-
-          }, 1200);
-
-
-        } catch (error) {
-
-          console.error(
-            "Registration error:",
-            error
-          );
-
-          showMessage(
-            "تعذر الاتصال بالخادم",
-            false
-          );
-
-        } finally {
-
-          registerButton.disabled = false;
-
-          registerButton.textContent =
-            "تسجيل الحساب";
-
-          registerButton.style.background =
-            "linear-gradient(135deg,#2563eb,#4f46e5)";
-
-          registerButton.style.cursor =
-            "pointer";
-
-          registerButton.style.boxShadow =
-            "0 8px 20px rgba(37,99,235,.22)";
-
-        }
-
-      }
+    updateValue(
+      "gender",
+      value
     );
 
+    $("genderDropdown").style.display =
+      "none";
 
-    /* عرض الرسائل */
+  };
 
-    function showMessage(
-      text,
-      success
+});
+
+
+/* =========================
+   الهوايات
+========================= */
+
+const hobbyList = [
+
+  "كاتب",
+  "مصور فوتوغرافي",
+  "السفر",
+  "تصميم مونتاج",
+  "مخرج سينمائي",
+  "مؤلف",
+  "منتج",
+  "القراءة",
+  "مقدم",
+  "إعلامي"
+
+];
+
+let selectedHobbies = [];
+
+$("hobbiesButton").onclick = () => {
+
+  const container =
+    $("hobbiesContainer");
+
+  container.style.display =
+    container.style.display === "none"
+      ? "flex"
+      : "none";
+
+};
+
+function renderHobbies() {
+
+  const container =
+    $("hobbiesContainer");
+
+  container.innerHTML = "";
+
+  hobbyList.forEach(hobby => {
+
+    const button =
+      document.createElement("button");
+
+    button.className = "hobby";
+
+    button.textContent = hobby;
+
+    if (
+      selectedHobbies.includes(hobby)
     ) {
+      button.classList.add("active");
+    }
 
-      message.textContent = text;
+    button.onclick = () => {
 
-      message.style.display = "block";
+      if (
+        selectedHobbies.includes(hobby)
+      ) {
 
-
-      if (success) {
-
-        message.style.background =
-          "rgba(34,197,94,.10)";
-
-        message.style.border =
-          "1px solid rgba(34,197,94,.20)";
-
-        message.style.color =
-          "#86efac";
+        selectedHobbies =
+          selectedHobbies.filter(
+            x => x !== hobby
+          );
 
       } else {
 
-        message.style.background =
-          "rgba(239,68,68,.10)";
-
-        message.style.border =
-          "1px solid rgba(239,68,68,.20)";
-
-        message.style.color =
-          "#fca5a5";
+        selectedHobbies.push(hobby);
 
       }
 
+      localStorage.setItem(
+        "hobbies",
+        JSON.stringify(
+          selectedHobbies
+        )
+      );
+
+      renderHobbies();
+
+      updateHobbiesValue();
+
+    };
+
+    container.appendChild(button);
+
+  });
+
+  updateHobbiesValue();
+
+}
+
+function updateHobbiesValue() {
+
+  const element =
+    $("hobbiesValue");
+
+  if (!selectedHobbies.length) {
+
+    element.textContent =
+      "غير مضاف";
+
+    element.classList.remove(
+      "has-value"
+    );
+
+    return;
+
+  }
+
+  element.textContent =
+    selectedHobbies.join(" • ");
+
+  element.classList.add(
+    "has-value"
+  );
+
+}
+
+
+/* =========================
+   التعليم
+========================= */
+
+const educationList = [
+
+  "ابتدائي",
+  "متوسط",
+  "إعدادي",
+  "ثانوي",
+  "كلية",
+  "دراسات عليا"
+
+];
+
+createOptions(
+  "educationDropdown",
+  educationList,
+  "education"
+);
+
+
+/* =========================
+   المهنة
+========================= */
+
+const jobList = [
+
+  "طالب",
+  "مبرمج",
+  "مصمم",
+  "مصور",
+  "إعلامي",
+  "موظف",
+  "حر"
+
+];
+
+createOptions(
+  "jobDropdown",
+  jobList,
+  "job"
+);
+
+function createOptions(
+  containerId,
+  list,
+  key
+) {
+
+  const container =
+    $(containerId);
+
+  const buttonId =
+    key === "education"
+      ? "educationButton"
+      : "jobButton";
+
+  $(buttonId).onclick = () => {
+
+    container.style.display =
+      container.style.display === "none"
+        ? "flex"
+        : "none";
+
+  };
+
+  list.forEach(item => {
+
+    const button =
+      document.createElement("button");
+
+    button.textContent = item;
+
+    button.onclick = () => {
+
+      localStorage.setItem(
+        key,
+        item
+      );
+
+      updateValue(
+        key,
+        item
+      );
+
+      container.style.display =
+        "none";
+
+    };
+
+    container.appendChild(button);
+
+  });
+
+}
+
+
+/* =========================
+   معلومات التواصل
+========================= */
+
+const contactLabels = {
+
+  facebook: "فيسبوك",
+  whatsapp: "واتساب",
+  instagram: "انستكرام",
+  email: "البريد الإلكتروني"
+
+};
+
+let currentContact = "";
+
+document
+.querySelectorAll("[data-contact]")
+.forEach(element => {
+
+  element.onclick = () => {
+
+    currentContact =
+      element.dataset.contact;
+
+    $("contactTitle").textContent =
+      contactLabels[currentContact];
+
+    $("contactInput").value =
+      localStorage.getItem(
+        currentContact
+      ) || "";
+
+    openModal("contactModal");
+
+  };
+
+});
+
+$("contactSave").onclick = () => {
+
+  const value =
+    $("contactInput").value.trim();
+
+  localStorage.setItem(
+    currentContact,
+    value
+  );
+
+  updateValue(
+    currentContact,
+    value
+  );
+
+  closeModal("contactModal");
+
+};
+
+
+/* =========================
+   الموقع والبحث
+========================= */
+
+let currentLocationType = "";
+
+document
+.querySelectorAll("[data-location]")
+.forEach(element => {
+
+  element.onclick = () => {
+
+    currentLocationType =
+      element.dataset.location;
+
+    const key =
+      currentLocationType === "current"
+        ? "currentLocation"
+        : "originLocation";
+
+    $("locationTitle").textContent =
+      currentLocationType === "current"
+        ? "الموقع الحالي"
+        : "مكان المنشأ";
+
+    $("locationInput").value =
+      localStorage.getItem(key) || "";
+
+    $("searchResults").innerHTML = "";
+
+    openModal("locationModal");
+
+  };
+
+});
+
+let searchTimeout;
+
+$("locationInput").addEventListener(
+  "input",
+  function() {
+
+    clearTimeout(searchTimeout);
+
+    const value =
+      this.value.trim();
+
+    if (value.length < 2) {
+
+      $("searchResults").innerHTML =
+        "";
+
+      return;
+
     }
 
-  </script>
+    searchTimeout =
+      setTimeout(
+        () => searchLocation(value),
+        400
+      );
+
+  }
+);
+
+async function searchLocation(value) {
+
+  try {
+
+    const response =
+      await fetch(
+        "https://nominatim.openstreetmap.org/search?" +
+        new URLSearchParams({
+          format: "json",
+          q: value,
+          "accept-language": "ar"
+        })
+      );
+
+    const data =
+      await response.json();
+
+    const results =
+      $("searchResults");
+
+    results.innerHTML = "";
+
+    data.slice(0, 8).forEach(place => {
+
+      const div =
+        document.createElement("div");
+
+      div.className =
+        "search-result";
+
+      div.textContent =
+        place.display_name;
+
+      div.onclick = () => {
+
+        $("locationInput").value =
+          place.display_name;
+
+        results.innerHTML = "";
+
+      };
+
+      results.appendChild(div);
+
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+}
+
+$("locationSave").onclick = () => {
+
+  const value =
+    $("locationInput").value.trim();
+
+  const key =
+    currentLocationType === "current"
+      ? "currentLocation"
+      : "originLocation";
+
+  localStorage.setItem(
+    key,
+    value
+  );
+
+  updateValue(
+    key,
+    value
+  );
+
+  closeModal("locationModal");
+
+};
+
+
+/* =========================
+   الصورة الشخصية
+========================= */
+
+$("profileUpload").addEventListener(
+  "change",
+  function() {
+
+    const file =
+      this.files[0];
+
+    if (!file) return;
+
+    const reader =
+      new FileReader();
+
+    reader.onload = () => {
+
+      const image =
+        reader.result;
+
+      $("profileImage").src =
+        image;
+
+      localStorage.setItem(
+        "profileImage",
+        image
+      );
+
+    };
+
+    reader.readAsDataURL(file);
+
+  }
+);
+
+
+/* =========================
+   الغلاف
+========================= */
+
+let coverDragging = false;
+let startY = 0;
+let currentTop = 0;
+let locked = false;
+
+$("coverUpload").addEventListener(
+  "change",
+  function() {
+
+    const file =
+      this.files[0];
+
+    if (!file) return;
+
+    locked = false;
+
+    const reader =
+      new FileReader();
+
+    reader.onload = () => {
+
+      $("coverImage").src =
+        reader.result;
+
+      $("coverImage").style.display =
+        "block";
+
+      $("coverImage").style.top =
+        "0px";
+
+      currentTop = 0;
+
+      $("coverImage").onload =
+        () => {
+
+          const frame =
+            $("cover");
+
+          const img =
+            $("coverImage");
+
+          const ratio =
+            frame.offsetWidth /
+            img.naturalWidth;
+
+          img.style.width =
+            frame.offsetWidth + "px";
+
+          img.style.height =
+            img.naturalHeight *
+            ratio +
+            "px";
+
+        };
+
+    };
+
+    reader.readAsDataURL(file);
+
+  }
+);
+
+
+/* سحب الغلاف */
+
+function moveCover(y) {
+
+  if (locked) return;
+
+  const img =
+    $("coverImage");
+
+  const frame =
+    $("cover");
+
+  let top =
+    y - startY;
+
+  if (top > 0)
+    top = 0;
+
+  const min =
+    frame.offsetHeight -
+    img.offsetHeight;
+
+  if (top < min)
+    top = min;
+
+  img.style.top =
+    top + "px";
+
+  currentTop = top;
+
+}
+
+
+$("coverImage").addEventListener(
+  "mousedown",
+  e => {
+
+    if (locked) return;
+
+    coverDragging = true;
+
+    startY =
+      e.clientY -
+      currentTop;
+
+  }
+);
+
+document.addEventListener(
+  "mousemove",
+  e => {
+
+    if (!coverDragging) return;
+
+    moveCover(e.clientY);
+
+  }
+);
+
+document.addEventListener(
+  "mouseup",
+  () => {
+
+    coverDragging = false;
+
+  }
+);
+
+
+$("coverImage").addEventListener(
+  "touchstart",
+  e => {
+
+    if (locked) return;
+
+    coverDragging = true;
+
+    startY =
+      e.touches[0].clientY -
+      currentTop;
+
+  }
+);
+
+document.addEventListener(
+  "touchmove",
+  e => {
+
+    if (!coverDragging) return;
+
+    moveCover(
+      e.touches[0].clientY
+    );
+
+  }
+);
+
+document.addEventListener(
+  "touchend",
+  () => {
+
+    coverDragging = false;
+
+  }
+);
+
+
+/* =========================
+   قائمة الغلاف
+========================= */
+
+$("optionsButton").onclick = () => {
+
+  const menu =
+    $("coverMenu");
+
+  menu.style.display =
+    menu.style.display === "none"
+      ? "flex"
+      : "none";
+
+};
+
+$("editCover").onclick = () => {
+
+  locked = false;
+
+  $("coverImage").style.top =
+    "0px";
+
+  currentTop = 0;
+
+};
+
+$("saveCover").onclick = () => {
+
+  const image =
+    $("coverImage");
+
+  if (!image.src)
+    return;
+
+  localStorage.setItem(
+    "profileCover",
+    image.src
+  );
+
+  locked = true;
+
+  $("coverMenu").style.display =
+    "none";
+
+  alert("تم حفظ الغلاف ✔");
+
+};
+
+
+/* =========================
+   تحميل الصور
+========================= */
+
+function loadImages() {
+
+  const profile =
+    localStorage.getItem(
+      "profileImage"
+    );
+
+  if (profile) {
+
+    $("profileImage").src =
+      profile;
+
+  }
+
+  const cover =
+    localStorage.getItem(
+      "profileCover"
+    );
+
+  if (cover) {
+
+    $("coverImage").src =
+      cover;
+
+    $("coverImage").style.display =
+      "block";
+
+    $("coverImage").onload =
+      () => {
+
+        const frame =
+          $("cover");
+
+        const img =
+          $("coverImage");
+
+        const ratio =
+          frame.offsetWidth /
+          img.naturalWidth;
+
+        img.style.width =
+          frame.offsetWidth + "px";
+
+        img.style.height =
+          img.naturalHeight *
+          ratio +
+          "px";
+
+      };
+
+    locked = true;
+
+  }
+
+}
+
+
+/* =========================
+   تشغيل
+========================= */
+
+loadData();
+
+</script>
 
 </body>
 </html>
