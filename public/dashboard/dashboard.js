@@ -177,3 +177,27 @@ if (logoutBtn) {
     }
   });
 }
+
+/* إظهار النشر للمالك فقط */
+document.addEventListener('DOMContentLoaded', async () => {
+  const publishNavItem = document.getElementById('publishNavItem');
+
+  if (!publishNavItem) return;
+
+  try {
+    const response = await fetch('/api/auth/me', {
+      method: 'GET',
+      credentials: 'include'
+    });
+
+    if (!response.ok) return;
+
+    const data = await response.json();
+
+    if (data.success && data.user && data.user.role === 'owner') {
+      publishNavItem.hidden = false;
+    }
+  } catch (error) {
+    console.error('Owner check error:', error);
+  }
+});

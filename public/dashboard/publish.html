@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07111f">
+  <title>النشر - كرار كريم</title>
+  <link rel="stylesheet" href="/dashboard/dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+
+<body>
+
+  <div class="dashboard-app">
+
+    <main class="dashboard-content">
+
+      <section class="welcome-section">
+        <span class="welcome-label">النشر</span>
+        <h1>إنشاء منشور</h1>
+        <p>أنشئ منشوراً واختر القسم الذي سيظهر فيه.</p>
+      </section>
+
+      <section class="post-modal-card" style="margin: 24px auto 0;">
+        <div class="post-modal-header">
+          <h2>بيانات المنشور</h2>
+        </div>
+
+        <div class="post-modal-body">
+
+          <label class="post-field-label" for="postSection">القسم</label>
+          <select id="postSection" class="post-input">
+            <option value="studio">الاستوديو</option>
+            <option value="poetry">قصائد شعرية</option>
+            <option value="theatre">مسرحي</option>
+            <option value="events">المناسبات</option>
+            <option value="festivals">المهرجانات</option>
+            <option value="articles">المقالات</option>
+          </select>
+
+          <label class="post-field-label" for="postSubsection">القسم الفرعي</label>
+          <select id="postSubsection" class="post-input">
+            <option value="">اختر القسم الفرعي</option>
+          </select>
+
+          <label class="post-field-label" for="postTitle">عنوان المنشور</label>
+          <input
+            type="text"
+            id="postTitle"
+            class="post-input"
+            maxlength="255"
+            placeholder="اكتب عنوان المنشور..."
+          >
+
+          <label class="post-field-label" for="postContent">وصف المنشور</label>
+
+          <div class="post-content-media-box">
+            <textarea
+              id="postContent"
+              class="post-textarea"
+              maxlength="5000"
+              placeholder="اكتب وصفاً واضحاً للمنشور..."
+            ></textarea>
+
+            <div class="post-media-actions">
+              <label class="post-media-button">
+                <i class="fa-solid fa-photo-film" aria-hidden="true"></i>
+                <span>إضافة صور أو فيديوهات</span>
+                <input
+                  type="file"
+                  id="postMedia"
+                  accept="image/*,video/*"
+                  multiple
+                  hidden
+                >
+              </label>
+            </div>
+
+            <div class="post-selected-file" id="postSelectedFile"></div>
+          </div>
+
+          <button type="button" class="publish-post-button" id="publishPostButton">
+            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+            <span>نشر المنشور</span>
+          </button>
+
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <div class="media-viewer" id="mediaViewer" aria-hidden="true">
+    <div class="media-viewer-overlay" id="mediaViewerOverlay"></div>
+
+    <div class="media-viewer-content" role="dialog" aria-modal="true" aria-label="عرض الوسائط">
+
+      <button
+        type="button"
+        class="media-viewer-back"
+        id="mediaViewerBack"
+        aria-label="الرجوع إلى صفحة النشر"
+      >
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        <span>رجوع</span>
+      </button>
+
+      <button
+        type="button"
+        class="media-viewer-prev"
+        id="mediaViewerPrev"
+        aria-label="الوسائط السابقة"
+      >
+        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+      </button>
+
+      <div class="media-viewer-stage" id="mediaViewerStage"></div>
+
+      <button
+        type="button"
+        class="media-viewer-next"
+        id="mediaViewerNext"
+        aria-label="الوسائط التالية"
+      >
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+      </button>
+
+    </div>
+  </div>
+
+  <script src="/dashboard/publish.js"></script>
+</body>
+</html>

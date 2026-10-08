@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const { OAuth2Client } = require('google-auth-library');
 const { pool } = require('../config/database');
+const { requireAuth } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -281,6 +282,14 @@ router.get('/google/callback', async (req, res) => {
 
     return res.redirect('/login.html?google=error');
   }
+});
+
+/* بيانات المستخدم الحالي */
+router.get('/me', requireAuth, (req, res) => {
+  return res.json({
+    success: true,
+    user: req.user
+  });
 });
 
 /* تسجيل الخروج */
