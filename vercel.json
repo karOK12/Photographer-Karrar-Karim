@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "routes": [
     {
-      "src": "^/dashboard$",
+      "src": "^/dashboard(?:/(.*))?$",
       "dest": "/api/index.js"
     },
     {

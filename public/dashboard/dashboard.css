@@ -1320,3 +1320,30 @@ a {
     padding: 0 14px;
   }
 }
+
+/* تنسيق احترافي لحقول اختيار القسم */
+.post-input {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: var(--surface-2);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) 21px,
+    calc(100% - 13px) 21px;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-left: 14px;
+  padding-right: 34px;
+  cursor: pointer;
+}
+
+.post-input:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.post-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.10);
+}

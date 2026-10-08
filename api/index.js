@@ -10,36 +10,24 @@ const app = express();
 const { testDatabaseConnection } = require('../config/database');
 const { initContentDatabase } = require('../config/content-db');
 const authRouter = require('./auth');
+const { requireOwnerPage } = require('../middleware/auth');
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 
-app.get('/dashboard', (req, res) => {
-  const token = req.cookies?.auth_token;
-
-  if (!token) {
-    return res.redirect('/login.html');
-  }
-
-  try {
-    jwt.verify(token, process.env.JWT_SECRET);
-
-    return res.sendFile(
-      path.join(__dirname, '..', 'public', 'dashboard', 'index.html')
-    );
-  } catch (error) {
-    res.clearCookie('auth_token', {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      path: '/'
-    });
-
-    return res.redirect('/login.html');
-  }
+app.get('/dashboard', requireOwnerPage, (req, res) => {
+  return res.sendFile(
+    path.join(__dirname, '..', 'public', 'dashboard', 'index.html')
+  );
 });
+
+app.use(
+  '/dashboard',
+  requireOwnerPage,
+  express.static(path.join(__dirname, '..', 'public', 'dashboard'))
+);
 app.use(express.static(path.join(__dirname, '..')));
 
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
