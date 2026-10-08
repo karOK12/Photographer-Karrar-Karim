@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-  
+
   body {
     background: #e9eef5;
     min-height: 100vh;
@@ -16,7 +16,7 @@
     align-items: flex-start;
     padding: 60px 10px 20px;
   }
-  
+
   .container {
     background: #fff;
     padding: 14px;
@@ -27,17 +27,17 @@
     overflow-y: auto;
     box-shadow: 0 4px 20px rgba(0,0,0,0.08);
   }
-  
+
   .container::-webkit-scrollbar { width: 6px; }
   .container::-webkit-scrollbar-thumb { background: #1877f2; border-radius: 3px; }
-  
+
   h2 {
     text-align: center;
     margin-bottom: 20px;
     color: #1a2b4a;
     font-size: 20px;
   }
-  
+
   .profile-pic {
     width: 100px;
     height: 100px;
@@ -69,11 +69,11 @@
     font-weight: bold;
     box-shadow: 0 2px 6px rgba(24,119,242,0.4);
   }
-  
+
   .field { margin-bottom: 6px; }
   .row { display: flex; gap: 6px; margin-bottom: 6px; }
   .row > * { flex: 1; min-width: 0; }
-  
+
   input, select {
     width: 100%;
     padding: 6px 9px;
@@ -89,7 +89,7 @@
   input:focus, select:focus { border-color: #1877f2; }
   input::placeholder { color: #999; }
   input[readonly] { background: #f5f5f5; cursor: default; }
-  
+
   select {
     appearance: none;
     -webkit-appearance: none;
@@ -99,21 +99,21 @@
     background-size: 14px;
     padding-left: 28px;
   }
-  
+
   select option[value=""] { color: #999; }
-  
+
   input.error, select.error {
     border-color: #e74c3c;
     background: #fff5f5;
   }
-  
+
   .birth-label {
     font-size: 12px;
     color: #666;
     margin-bottom: 4px;
     font-weight: 600;
   }
-  
+
   .radio-row {
     display: flex;
     gap: 6px;
@@ -142,7 +142,7 @@
   }
   .radio-option input[type="text"]:focus,
   .radio-option input[type="email"]:focus { border: none; }
-  
+
   button {
     background: #1877f2;
     color: #fff;
@@ -162,17 +162,17 @@
   button.secondary:hover:not(:disabled) { background: #5a6268; }
   button.success { background: #28a745; }
   button.success:hover:not(:disabled) { background: #218838; }
-  
+
   .btn-row { display: flex; gap: 6px; margin-bottom: 6px; }
   .btn-row > * { flex: 1; }
-  
+
   .hidden-fields { display: none; animation: slideDown 0.3s ease; }
   .hidden-fields.show { display: block; }
   @keyframes slideDown {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  
+
   @media (max-width: 480px) {
     body { padding: 20px 8px; }
   }
@@ -182,28 +182,28 @@
 
 <div class="container">
   <h2>بيانات المستخدم</h2>
-  
+
   <div class="alert" id="alert"></div>
-  
+
   <div class="profile-pic" onclick="uploadProfilePic()">
     <div class="placeholder" id="profilePlaceholder">👤</div>
     <img id="profileImg" style="display:none" alt="profile">
     <div class="add-icon">+</div>
   </div>
-  
+
   <!-- ✅ تم إزالة capture لفتح الاستوديو بدلاً من الكاميرا -->
   <input id="profileInput" type="file" accept="image/jpeg,image/png,image/gif,image/webp" style="display:none">
-  
+
   <div class="field">
     <input id="fullName" placeholder="الاسم الكامل" autocomplete="name">
     <div class="error-msg" id="err-fullName">الاسم الكامل مطلوب</div>
   </div>
-  
+
   <div class="field">
     <input id="lastName" placeholder="اللقب" autocomplete="family-name">
     <div class="error-msg" id="err-lastName">اللقب مطلوب</div>
   </div>
-  
+
   <div class="birth-label">📅 تاريخ الميلاد</div>
   <div class="row">
     <select id="birthDay">
@@ -229,7 +229,7 @@
     </select>
   </div>
   <div class="error-msg" id="err-birth">تاريخ الميلاد غير صحيح</div>
-  
+
   <div class="row">
     <select id="country" style="flex: 0 0 35%">
       <option value="">الدولة</option>
@@ -249,13 +249,13 @@
     <input id="phone" placeholder="رقم الهاتف" type="tel">
   </div>
   <div class="error-msg" id="err-phone">رقم الهاتف غير صحيح</div>
-  
+
   <div class="row">
     <input id="city" placeholder="المدينة">
     <input id="state" placeholder="المحافظة">
     <input id="zip" placeholder="الرمز البريدي">
   </div>
-  
+
   <div class="field">
     <select id="idType">
       <option value="">نوع الهوية</option>
@@ -264,7 +264,7 @@
       <option value="license">رخصة قيادة</option>
     </select>
   </div>
-  
+
   <div class="hidden-fields" id="idFields">
     <div class="field">
       <input id="idName" placeholder="اسم صاحب الهوية">
@@ -275,28 +275,28 @@
       <div class="error-msg" id="err-idNumber">رقم الهوية مطلوب</div>
     </div>
   </div>
-  
+
   <div class="row">
     <input id="imageLink" readonly placeholder="رابط صورة الهوية (اختياري)">
     <button type="button" onclick="document.getElementById('fileInput').click()" style="flex: 0 0 30%">رفع</button>
     <!-- ✅ تم إزالة capture لفتح الاستوديو بدلاً من الكاميرا -->
     <input id="fileInput" type="file" accept="image/jpeg,image/png,image/gif,image/webp" style="display:none">
   </div>
-  
+
   <div class="divider"></div>
-  
+
   <div class="field">
     <input type="password" id="password" placeholder="كلمة المرور">
     <div class="error-msg" id="err-password">كلمة المرور يجب أن تكون 8 أحرف على الأقل</div>
   </div>
-  
+
   <div class="field">
     <input type="password" id="confirmPassword" placeholder="تأكيد كلمة المرور">
     <div class="error-msg" id="err-confirmPassword">كلمتا المرور غير متطابقتين</div>
   </div>
-  
+
   <div class="divider"></div>
-  
+
   <div class="radio-row">
     <div class="radio-option" id="radioEmail" onclick="select2FA('email')">
       <input type="radio" name="twoFA" value="email" id="radioEmailInput">
@@ -308,11 +308,11 @@
     </div>
   </div>
   <div class="error-msg" id="err-2fa">اختر طريقة التحقق وأدخل البيانات</div>
-  
+
   <div class="field">
     <button id="otpBtn" onclick="sendOTP()">إرسال كود التحقق</button>
   </div>
-  
+
   <div class="divider"></div>
   <div class="field">
     <button id="saveBtn" onclick="saveData()" class="success">💾 حفظ البيانات</button>
@@ -352,34 +352,34 @@ const API_URL = '/api';
 // ============================================
 async function apiFetch(url, options = {}) {
   const token = localStorage.getItem('token') || localStorage.getItem('auth_token');
-  
+
   const headers = {
     'Content-Type': 'application/json',
     ...(options.headers || {})
   };
-  
+
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }
-  
+
   const response = await fetch(url, {
     ...options,
     headers,
     credentials: 'include'
   });
-  
+
   if (response.status === 401) {
     localStorage.removeItem('token');
     localStorage.removeItem('auth_token');
     throw new Error('انتهت صلاحية الجلسة - سجل دخولك مرة أخرى');
   }
-  
+
   const data = await response.json().catch(() => ({}));
-  
+
   if (!response.ok) {
     throw new Error(data.message || `خطأ ${response.status}`);
   }
-  
+
   return data;
 }
 
@@ -437,7 +437,7 @@ function restoreVerifyFormData() {
 async function loadUserData() {
   try {
     const data = await apiFetch(`${API_URL}/user/profile`);
-    
+
     if (data.success && data.user) {
       const u = data.user;
       state.form.fullName = u.full_name || u.fullName || '';
@@ -450,7 +450,7 @@ async function loadUserData() {
       state.form.idName = u.id_name || u.idName || '';
       state.form.idNumber = u.id_number || u.idNumber || '';
       state.form.email = u.email || '';
-      
+
       if (u.birth_date || u.birthDate) {
         const bd = (u.birth_date || u.birthDate).split('-');
         if (bd.length === 3) {
@@ -459,16 +459,16 @@ async function loadUserData() {
           state.form.birthDay = String(parseInt(bd[2]));
         }
       }
-      
+
       Object.keys(state.form).forEach(key => {
         const el = document.getElementById(key);
         if (el && state.form[key]) el.value = state.form[key];
       });
-      
+
       if (state.form.idType) {
         document.getElementById('idFields').classList.add('show');
       }
-      
+
       if (u.profile_image || u.profileImage) {
         const imgUrl = u.profile_image || u.profileImage;
         state.form.profileImage = imgUrl;
@@ -476,7 +476,7 @@ async function loadUserData() {
         document.getElementById('profileImg').style.display = 'block';
         document.getElementById('profilePlaceholder').style.display = 'none';
       }
-      
+
       if (u.id_image || u.idImage) {
         const imgUrl = u.id_image || u.idImage;
         state.form.imageLink = imgUrl;
@@ -494,14 +494,14 @@ async function loadUserData() {
 function populateBirthSelects() {
   const daySelect = document.getElementById('birthDay');
   const yearSelect = document.getElementById('birthYear');
-  
+
   for (let i = 1; i <= 31; i++) {
     const option = document.createElement('option');
     option.value = i;
     option.textContent = i;
     daySelect.appendChild(option);
   }
-  
+
   for (let i = 2010; i >= 1940; i--) {
     const option = document.createElement('option');
     option.value = i;
@@ -567,19 +567,19 @@ function uploadProfilePic() {
 document.getElementById('profileInput').addEventListener('change', (e) => {
   const file = e.target.files[0];
   if (!file) return;
-  
+
   if (file.size > 5 * 1024 * 1024) {
     showAlert('حجم الصورة يجب أن يكون أقل من 5 ميجابايت', 'error');
     e.target.value = '';
     return;
   }
-  
+
   if (!file.type.startsWith('image/')) {
     showAlert('يرجى اختيار صورة صالحة فقط', 'error');
     e.target.value = '';
     return;
   }
-  
+
   const reader = new FileReader();
   reader.onload = () => {
     state.form.profileImage = reader.result;
@@ -599,19 +599,19 @@ document.getElementById('profileInput').addEventListener('change', (e) => {
 document.getElementById('fileInput').addEventListener('change', (e) => {
   const file = e.target.files[0];
   if (!file) return;
-  
+
   if (file.size > 10 * 1024 * 1024) {
     showAlert('حجم صورة الهوية يجب أن يكون أقل من 10 ميجابايت', 'error');
     e.target.value = '';
     return;
   }
-  
+
   if (!file.type.startsWith('image/')) {
     showAlert('يرجى اختيار صورة صالحة فقط', 'error');
     e.target.value = '';
     return;
   }
-  
+
   const reader = new FileReader();
   reader.onload = () => {
     state.form.imageLink = reader.result;
@@ -662,12 +662,12 @@ function validateBirthDate() {
   const day = parseInt(state.form.birthDay);
   const month = parseInt(state.form.birthMonth);
   const year = parseInt(state.form.birthYear);
-  
+
   if (!day || !month || !year) return false;
-  
+
   const daysInMonth = new Date(year, month, 0).getDate();
   if (day > daysInMonth) return false;
-  
+
   const today = new Date();
   const birthDate = new Date(year, month - 1, day);
   let age = today.getFullYear() - birthDate.getFullYear();
@@ -676,7 +676,7 @@ function validateBirthDate() {
     age--;
   }
   if (age < 18) return false;
-  
+
   return true;
 }
 
@@ -726,8 +726,13 @@ async function sendOTP() {
     hasError = true;
   }
 
-  const contact = state.form.email.trim().toLowerCase();
-  console.log('DEBUG EMAIL:', JSON.stringify(contact), 'TWOFA:', state.form.twoFA, 'VALID:', validateEmail(contact));
+  if (state.form.twoFA === 'phone') {
+      showAlert('التحقق عبر الهاتف غير متاح حالياً. اختر التحقق عبر البريد الإلكتروني.', 'error');
+      return;
+    }
+
+    const contact = state.form.email.trim().toLowerCase();
+
   state.form.email = contact;
 
   if (!contact) {
@@ -772,6 +777,7 @@ async function sendOTP() {
     /*
      * حفظ بيانات التحقق مؤقتاً حتى ترجع من verify.html
      */
+    sessionStorage.setItem('verifyFormData', JSON.stringify(state.form));
     sessionStorage.setItem('pendingVerification', JSON.stringify({
       email: contact,
       twoFA: state.form.twoFA,
@@ -809,28 +815,28 @@ async function sendOTP() {
 // ══════════════════════════════════════════════════════════
 async function uploadImage(base64Data) {
   if (!base64Data) return null;
-  
+
   if (base64Data.startsWith('/uploads/') || base64Data.startsWith('http')) {
     return base64Data;
   }
-  
+
   if (base64Data.startsWith('data:image/')) {
     try {
       const data = await apiFetch(`${API_URL}/upload`, {
         method: 'POST',
         body: JSON.stringify({ image: base64Data })
       });
-      
+
       if (!data.success || !data.url) {
         throw new Error('لم يرجع السيرفر رابطاً للصورة');
       }
-      
+
       return data.url;
     } catch (err) {
       throw new Error(err.message || 'فشل الاتصال بخادم الرفع');
     }
   }
-  
+
   return base64Data;
 }
 
@@ -853,15 +859,15 @@ async function saveData(autoAfterVerify = false) {
     showAlert('⚠️ يجب إكمال التحقق أولاً', 'error');
     return;
   }
-  
+
   const btn = document.getElementById('saveBtn');
   btn.disabled = true;
   btn.innerHTML = 'جاري رفع الصور <span class="loading"></span>';
-  
+
   try {
     let profileImageUrl = null;
     let idImageUrl = null;
-    
+
     if (state.form.profileImage) {
       try {
         btn.innerHTML = 'جاري رفع صورة البروفايل <span class="loading"></span>';
@@ -871,7 +877,7 @@ async function saveData(autoAfterVerify = false) {
         throw new Error('فشل رفع صورة البروفايل: ' + err.message);
       }
     }
-    
+
     if (state.form.imageLink) {
       try {
         btn.innerHTML = 'جاري رفع صورة الهوية <span class="loading"></span>';
@@ -881,13 +887,13 @@ async function saveData(autoAfterVerify = false) {
         throw new Error('فشل رفع صورة الهوية: ' + err.message);
       }
     }
-    
+
     const birthDate = (state.form.birthYear && state.form.birthMonth && state.form.birthDay)
       ? `${state.form.birthYear}-${String(state.form.birthMonth).padStart(2,'0')}-${String(state.form.birthDay).padStart(2,'0')}`
       : null;
-    
+
     btn.innerHTML = 'جاري حفظ البيانات <span class="loading"></span>';
-    
+
     await apiFetch(`${API_URL}/user/profile`, {
       method: 'PUT',
       body: JSON.stringify({
@@ -908,19 +914,19 @@ async function saveData(autoAfterVerify = false) {
         phone2: state.form.phone2
       })
     });
-    
+
     showAlert('✓ تم حفظ البيانات بنجاح!', 'success');
 
     // التسجيل اكتمل فعليًا بعد التحقق وحفظ البيانات
     localStorage.setItem('registrationCompleted', 'true');
 
-    
+
     setTimeout(() => {
       // بعد اكتمال التسجيل والـ OTP والبيانات
       // العودة دائماً إلى واجهة تسجيل الدخول
       window.location.href = '/login.html';
     }, 1500);
-    
+
   } catch (err) {
     showAlert('✗ فشل الحفظ: ' + err.message, 'error');
     console.error('Save error:', err);
