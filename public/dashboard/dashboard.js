@@ -178,12 +178,8 @@ if (logoutBtn) {
   });
 }
 
-/* إظهار النشر للمالك فقط */
+/* إظهار الروابط حسب صلاحيات الحساب */
 document.addEventListener('DOMContentLoaded', async () => {
-  const publishNavItem = document.getElementById('publishNavItem');
-
-  if (!publishNavItem) return;
-
   try {
     const response = await fetch('/api/auth/me', {
       method: 'GET',
@@ -193,11 +189,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!response.ok) return;
 
     const data = await response.json();
+    if (!data.success || !data.user) return;
 
-    if (data.success && data.user && data.user.role === 'owner') {
+    const user = data.user;
+    const publishNavItem = document.getElementById('publishNavItem');
+    const permissionsNavItem = document.getElementById('permissionsNavItem');
+
+    if (publishNavItem &&
+        (user.role === 'owner' || user.can_publish === true)) {
       publishNavItem.hidden = false;
     }
+
+    if (permissionsNavItem && user.role === 'owner') {
+      permissionsNavItem.hidden = false;
+    }
   } catch (error) {
-    console.error('Owner check error:', error);
+    console.error('Dashboard permissions error:', error);
   }
 });

@@ -2,6 +2,11 @@ const { pool } = require('./database');
 
 async function initContentDatabase() {
   await pool.query(`
+    ALTER TABLE users
+    ADD COLUMN IF NOT EXISTS can_publish BOOLEAN NOT NULL DEFAULT false
+  `);
+
+  await pool.query(`
     CREATE TABLE IF NOT EXISTS posts (
       id BIGSERIAL PRIMARY KEY,
       user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,

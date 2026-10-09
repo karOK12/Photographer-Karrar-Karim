@@ -10,7 +10,14 @@ const { pool, testDatabaseConnection } = require('../config/database');
 const { initContentDatabase } = require('../config/content-db');
 const authRouter = require('./auth');
 const otpRouter = require('./otp');
-const { requireAuth, requireOwner, requireOwnerPage } = require('../middleware/auth');
+const {
+  requireAuth,
+  requireOwner,
+  requirePublisher,
+  requireAuthPage,
+  requireOwnerPage,
+  requirePublisherPage
+} = require('../middleware/auth');
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
@@ -31,15 +38,23 @@ app.get('/', (req, res) => {
   );
 });
 
-app.get('/dashboard', requireOwnerPage, (req, res) => {
+app.get('/dashboard', requireAuthPage, (req, res) => {
   return res.sendFile(
     path.join(__dirname, '..', 'public', 'dashboard', 'index.html')
   );
 });
 
+app.get('/dashboard/publish.html', requirePublisherPage, (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'dashboard', 'publish.html'));
+});
+
+app.get('/dashboard/permissions.html', requireOwnerPage, (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'dashboard', 'permissions.html'));
+});
+
 app.use(
   '/dashboard',
-  requireOwnerPage,
+  requireAuthPage,
   express.static(path.join(__dirname, '..', 'public', 'dashboard'))
 );
 app.use(express.static(path.join(__dirname, '..', 'public')));
@@ -215,7 +230,69 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-app.post('/api/posts', requireOwner, async (req, res) => {
+
+/* إدارة صلاحيات النشر: للمالك فقط */
+app.get('/api/permissions/users', requireOwner, async (req, res) => {
+  try {
+    const result = await pool.query(
+      `SELECT id, full_name, email, role, can_publish
+       FROM users
+       ORDER BY id ASC`
+    );
+
+    return res.json({ success: true, users: result.rows });
+  } catch (error) {
+    console.error('Permissions list error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'تعذر تحميل المستخدمين'
+    });
+  }
+});
+
+app.patch('/api/permissions/users/:id', requireOwner, async (req, res) => {
+  try {
+    const userId = Number(req.params.id);
+    const canPublish = req.body?.can_publish;
+
+    if (!Number.isSafeInteger(userId) || userId < 1 ||
+        typeof canPublish !== 'boolean') {
+      return res.status(400).json({
+        success: false,
+        message: 'بيانات الصلاحية غير صحيحة'
+      });
+    }
+
+    const result = await pool.query(
+      `UPDATE users
+       SET can_publish = $1
+       WHERE id = $2 AND role <> 'owner'
+       RETURNING id, full_name, email, role, can_publish`,
+      [canPublish, userId]
+    );
+
+    if (!result.rows.length) {
+      return res.status(404).json({
+        success: false,
+        message: 'المستخدم غير موجود أو لا يمكن تعديل صلاحية المالك'
+      });
+    }
+
+    return res.json({
+      success: true,
+      message: canPublish ? 'تم منح صلاحية النشر' : 'تم سحب صلاحية النشر',
+      user: result.rows[0]
+    });
+  } catch (error) {
+    console.error('Update publishing permission error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'تعذر تحديث صلاحية النشر'
+    });
+  }
+});
+
+app.post('/api/posts', requirePublisher, async (req, res) => {
   try {
     const {
       title,

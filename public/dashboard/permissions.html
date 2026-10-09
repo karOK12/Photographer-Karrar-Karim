@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>صلاحيات النشر - كرار كريم</title>
+  <link rel="stylesheet" href="/dashboard/dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <style>
+    .permissions-panel { max-width: 900px; margin: 24px auto; }
+    .permission-card {
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px; flex-wrap:wrap; padding:18px; margin:12px 0;
+      border:1px solid #26374c; border-radius:14px; background:#0b1726;
+    }
+    .permission-user { min-width:0; }
+    .permission-user strong { display:block; margin-bottom:6px; }
+    .permission-user small { color:#aab8ca; overflow-wrap:anywhere; }
+    .permission-state { color:#aab8ca; font-size:13px; margin-top:8px; }
+    .permission-button {
+      border:0; border-radius:9px; padding:10px 14px;
+      cursor:pointer; color:#fff; background:#1769aa; font:inherit;
+    }
+    .permission-button.revoke { background:#8d3945; }
+    .permission-button:disabled { opacity:.55; cursor:wait; }
+    #permissionMessage { margin:16px 0; }
+  </style>
+</head>
+<body>
+  <div class="dashboard-app">
+    <header class="top-bar">
+      <div class="top-bar-inner">
+        <div class="brand">
+          <div class="brand-mark">KK</div>
+          <div class="brand-text">
+            <strong>كرار كريم</strong>
+            <span>إدارة صلاحيات النشر</span>
+          </div>
+        </div>
+        <nav class="top-navigation" aria-label="التنقل العلوي">
+          <a href="/dashboard/index.html" class="top-nav-item">
+            <i class="fa-solid fa-house nav-icon" aria-hidden="true"></i>
+            <span>لوحة التحكم</span>
+          </a>
+          <a href="/dashboard/publish.html" class="top-nav-item">
+            <i class="fa-solid fa-pen-to-square nav-icon" aria-hidden="true"></i>
+            <span>النشر</span>
+          </a>
+        </nav>
+      </div>
+    </header>
+    <main class="dashboard-content">
+      <section class="welcome-section">
+        <span class="welcome-label">إدارة الحسابات</span>
+        <h1>صلاحيات النشر</h1>
+        <p>من هنا تگدر تمنح صلاحية النشر للمستخدم أو تسحبها. إدارة الصلاحيات للمالك فقط.</p>
+      </section>
+      <section class="permissions-panel">
+        <p id="permissionMessage" role="status">جاري تحميل المستخدمين...</p>
+        <div id="usersList"></div>
+      </section>
+    </main>
+  </div>
+  <script src="/dashboard/permissions.js"></script>
+</body>
+</html>
