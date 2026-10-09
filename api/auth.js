@@ -126,6 +126,7 @@ router.post('/login', async (req, res) => {
         full_name,
         email,
         password_hash,
+        role,
         created_at
        FROM users
        WHERE email = $1
@@ -163,6 +164,7 @@ router.post('/login', async (req, res) => {
         id: user.id,
         full_name: user.full_name,
         email: user.email,
+        role: user.role,
         created_at: user.created_at
       }
     });

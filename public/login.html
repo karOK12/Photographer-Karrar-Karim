@@ -723,7 +723,7 @@
           true
         );
 
-        window.location.href = "/dashboard";
+        window.location.href = data.user?.role === "owner" ? "/dashboard" : "/";
 
       } catch (error) {
 
