@@ -22,7 +22,9 @@
         </button>
 
         <div class="brand">
-          <div class="brand-mark">KK</div>
+          <div class="brand-mark" style="overflow:hidden;border-radius:50%;">
+  <img id="dashboardProfileImage" src="/assets/images/profile.jpg" alt="صورة البروفايل" style="width:100%;height:100%;object-fit:cover;">
+</div>
           <div class="brand-text">
             <strong>كرار كريم</strong>
             <span>لوحة التحكم</span>
@@ -155,5 +157,15 @@
   </div>
 
   <script src="/dashboard/dashboard.js"></script>
-</body>
+
+<script>
+(function () {
+  const image = document.getElementById("dashboardProfileImage");
+  const savedProfile = localStorage.getItem("profileImage");
+  if (image && savedProfile) {
+    image.src = savedProfile;
+  }
+})();
+</script>
+\n</body>
 </html>
