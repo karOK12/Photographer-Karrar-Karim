@@ -195,8 +195,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const publishNavItem = document.getElementById('publishNavItem');
     const permissionsNavItem = document.getElementById('permissionsNavItem');
 
-    if (publishNavItem &&
-        (user.role === 'owner' || user.can_publish === true)) {
+    if (publishNavItem && user.role === 'owner') {
       publishNavItem.hidden = false;
     }
 
