@@ -192,16 +192,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!data.success || !data.user) return;
 
     const user = data.user;
-    const publishNavItem = document.getElementById('publishNavItem');
-    const permissionsNavItem = document.getElementById('permissionsNavItem');
-
-    if (publishNavItem && user.role === 'owner') {
-      publishNavItem.hidden = false;
-    }
-
-    if (permissionsNavItem && user.role === 'owner') {
-      permissionsNavItem.hidden = false;
-    }
   } catch (error) {
     console.error('Dashboard permissions error:', error);
   }
