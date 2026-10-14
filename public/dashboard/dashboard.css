@@ -1131,16 +1131,17 @@ a {
   display: none !important;
 }
 
-/* دائرة KK بجانب رابط قصائد شعرية */
-.top-navigation {
-  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
-}
-
-.top-navigation > .brand-mark {
+/* وضع دائرة KK بجانب رابط قصائد شعرية */
+.top-navigation > #dashboardProfileAvatar {
+  display: inline-flex;
   width: 42px;
   height: 42px;
+  min-width: 42px;
   border-radius: 50%;
-  margin: 0;
-  justify-self: center;
-  align-self: center;
+  margin: 0 0 0 8px;
+  align-items: center;
+  justify-content: center;
+  position: static;
+  transform: none;
+  order: 1;
 }
