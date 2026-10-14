@@ -1099,17 +1099,34 @@ a {
 }
 
 
-/* زر الخطوط الثلاثة ثابت على يسار الشاشة ويبقى ظاهراً */
-.side-menu-toggle {
-  position: fixed;
-  top: 14px;
-  left: 14px;
-  right: auto;
-  z-index: 1300;
-  margin: 0;
+/* إبقاء زر القائمة داخل الشريط على اليسار من دون تغطية المناسبات */
+.top-bar {
+  z-index: 1400;
 }
 
-/* إخفاء زر X القديم إن بقي له أي استخدام */
+.top-bar-inner {
+  direction: ltr;
+  padding-left: 12px;
+  padding-right: 18px;
+}
+
+.top-bar-inner .brand,
+.top-bar-inner .top-navigation {
+  direction: rtl;
+}
+
+.top-bar-inner .side-menu-toggle {
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  transform: none;
+  z-index: 1401;
+  order: -1;
+  margin: 0;
+  flex: 0 0 42px;
+}
+
 .side-menu-close {
   display: none !important;
 }
