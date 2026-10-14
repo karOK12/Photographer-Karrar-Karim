@@ -1131,9 +1131,16 @@ a {
   display: none !important;
 }
 
-/* تثبيت دائرة KK بأقصى يمين الشريط */
-.top-bar-inner > #dashboardProfileAvatar {
-  order: -1;
-  flex: 0 0 42px;
+/* دائرة KK بجانب رابط قصائد شعرية */
+.top-navigation {
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+}
+
+.top-navigation > .brand-mark {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
   margin: 0;
+  justify-self: center;
+  align-self: center;
 }
