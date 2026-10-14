@@ -1130,3 +1130,10 @@ a {
 .side-menu-close {
   display: none !important;
 }
+
+/* تثبيت دائرة KK بأقصى يمين الشريط */
+.top-bar-inner > #dashboardProfileAvatar {
+  order: -1;
+  flex: 0 0 42px;
+  margin: 0;
+}
