@@ -121,27 +121,35 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
   const sideMenu = document.getElementById('sideMenu');
   const sideMenuToggle = document.getElementById('sideMenuToggle');
-  const sideMenuClose = document.getElementById('sideMenuClose');
   const sideMenuOverlay = document.getElementById('sideMenuOverlay');
 
-  if (!sideMenu || !sideMenuToggle || !sideMenuClose || !sideMenuOverlay) {
+  if (!sideMenu || !sideMenuToggle || !sideMenuOverlay) {
     return;
-  }
-
-  function openSideMenu() {
-    sideMenu.classList.add('open');
-    sideMenuOverlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
   }
 
   function closeSideMenu() {
     sideMenu.classList.remove('open');
     sideMenuOverlay.classList.remove('open');
+    sideMenuToggle.setAttribute('aria-expanded', 'false');
+    sideMenuToggle.setAttribute('aria-label', 'فتح القائمة');
     document.body.style.overflow = '';
   }
 
-  sideMenuToggle.addEventListener('click', openSideMenu);
-  sideMenuClose.addEventListener('click', closeSideMenu);
+  function toggleSideMenu() {
+    if (sideMenu.classList.contains('open')) {
+      closeSideMenu();
+      return;
+    }
+
+    sideMenu.classList.add('open');
+    sideMenuOverlay.classList.add('open');
+    sideMenuToggle.setAttribute('aria-expanded', 'true');
+    sideMenuToggle.setAttribute('aria-label', 'إغلاق القائمة');
+    document.body.style.overflow = 'hidden';
+  }
+
+  sideMenuToggle.setAttribute('aria-expanded', 'false');
+  sideMenuToggle.addEventListener('click', toggleSideMenu);
   sideMenuOverlay.addEventListener('click', closeSideMenu);
 
   document.addEventListener('keydown', (event) => {

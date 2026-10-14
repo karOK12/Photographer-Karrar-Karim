@@ -1097,3 +1097,19 @@ a {
     gap: 5px;
   }
 }
+
+
+/* زر الخطوط الثلاثة ثابت على يسار الشاشة ويبقى ظاهراً */
+.side-menu-toggle {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  right: auto;
+  z-index: 1300;
+  margin: 0;
+}
+
+/* إخفاء زر X القديم إن بقي له أي استخدام */
+.side-menu-close {
+  display: none !important;
+}
