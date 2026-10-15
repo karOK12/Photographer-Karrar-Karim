@@ -1145,3 +1145,28 @@ a {
   transform: none;
   order: 1;
 }
+
+/* تحسين محاذاة الأيقونات العلوية ودائرة KK فقط */
+.top-navigation {
+  align-items: center;
+}
+
+.top-navigation > .top-nav-item .nav-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.top-navigation > #dashboardProfileAvatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  flex: 0 0 42px;
+  margin: 0 0 0 8px;
+  position: relative;
+  top: -2px;
+  transform: none;
+}
