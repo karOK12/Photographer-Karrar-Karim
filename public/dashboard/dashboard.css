@@ -1149,7 +1149,7 @@ a {
 /* نفس أسلوب عناصر الشريط السفلي للأيقونات العلوية */
 .top-navigation {
   display: grid;
-  grid-template-columns: 40px repeat(4, minmax(0, 1fr));
+  grid-template-columns: 36px repeat(4, minmax(0, 1fr));
   align-items: center;
   gap: 4px;
   min-width: 0;
