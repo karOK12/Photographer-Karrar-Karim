@@ -1246,3 +1246,23 @@ a {
   text-decoration: none;
   cursor: pointer;
 }
+
+
+/* إبقاء الأيقونات العلوية ظاهرة عند فتح الشريط الجانبي */
+.top-bar {
+  z-index: 1400;
+}
+
+.top-bar-inner,
+.top-navigation {
+  position: relative;
+  z-index: 1401;
+}
+
+.side-menu {
+  z-index: 1200;
+}
+
+.side-menu-overlay {
+  z-index: 1100;
+}
