@@ -1349,3 +1349,14 @@ a {
   .menu-section-name { font-size: 15px; }
 }
 /* نهاية تنسيق أقسام صفحة القائمة */
+
+.menu-section-icon .menu-line-icon {
+  display: block;
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
