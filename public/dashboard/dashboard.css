@@ -1248,12 +1248,17 @@ a {
 }
 
 
-/* إبقاء الأيقونات العلوية ظاهرة عند فتح الشريط الجانبي */
+/* إبقاء الشريط العلوي والأيقونات فوق القائمة والطبقة المعتمة */
 .top-bar {
   z-index: 1400;
+  background: rgba(6, 16, 29, 0.94);
 }
 
-.top-bar-inner,
+.top-bar-inner {
+  position: relative;
+  z-index: 1401;
+}
+
 .top-navigation {
   position: relative;
   z-index: 1401;
@@ -1265,4 +1270,11 @@ a {
 
 .side-menu-overlay {
   z-index: 1100;
+}
+
+/* إظهار القائمة خلف الأيقونات العلوية عند فتحها */
+body.side-menu-visible .top-bar {
+  background: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }

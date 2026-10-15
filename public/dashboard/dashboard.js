@@ -166,6 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function closeSideMenu() {
     sideMenu.classList.remove('open');
     sideMenuOverlay.classList.remove('open');
+    document.body.classList.remove('side-menu-visible');
     sideMenuToggle.setAttribute('aria-expanded', 'false');
     sideMenuToggle.setAttribute('aria-label', 'فتح القائمة');
     document.body.style.overflow = '';
@@ -179,6 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     sideMenu.classList.add('open');
     sideMenuOverlay.classList.add('open');
+    document.body.classList.add('side-menu-visible');
     sideMenuToggle.setAttribute('aria-expanded', 'true');
     sideMenuToggle.setAttribute('aria-label', 'إغلاق القائمة');
     document.body.style.overflow = 'hidden';
