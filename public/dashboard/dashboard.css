@@ -1145,3 +1145,72 @@ a {
   transform: none;
   order: 1;
 }
+
+/* نفس أسلوب عناصر الشريط السفلي للأيقونات العلوية */
+.top-navigation {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) 40px;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.top-navigation > .top-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  min-width: 0;
+  height: 58px;
+  min-height: 58px;
+  padding: 6px 4px;
+  border-radius: 14px;
+  font-size: 10px;
+  font-weight: 700;
+  transform: none !important;
+}
+
+.top-navigation > .top-nav-item .nav-icon {
+  display: block;
+  width: 21px;
+  height: 21px;
+  flex: 0 0 21px;
+  font-size: 20px;
+  line-height: 1;
+  transform: none !important;
+}
+
+.top-navigation > #dashboardProfileAvatar {
+  grid-column: 5;
+  grid-row: 1;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  margin: 0;
+  justify-self: center;
+  align-self: center;
+  position: static;
+  transform: none;
+}
+
+@media (max-width: 430px) {
+  .top-navigation {
+    gap: 2px;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) 36px;
+  }
+
+  .top-navigation > .top-nav-item {
+    padding-left: 2px;
+    padding-right: 2px;
+    font-size: 9px;
+  }
+
+  .top-navigation > #dashboardProfileAvatar {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+  }
+}
