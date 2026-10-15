@@ -1,3 +1,39 @@
+/* مزامنة صورة البروفايل مع صفحة التسجيل */
+document.addEventListener('DOMContentLoaded', () => {
+  const avatar = document.getElementById('dashboardProfileAvatar');
+  if (!avatar) return;
+
+  function updateProfileAvatar() {
+    const savedImage = localStorage.getItem('profileImage');
+
+    if (!savedImage) {
+      avatar.textContent = 'KK';
+      avatar.removeAttribute('data-has-photo');
+      return;
+    }
+
+    let image = avatar.querySelector('img');
+
+    if (!image) {
+      image = document.createElement('img');
+      image.alt = 'صورة البروفايل';
+      image.draggable = false;
+      avatar.replaceChildren(image);
+    }
+
+    image.src = savedImage;
+    avatar.setAttribute('data-has-photo', 'true');
+  }
+
+  updateProfileAvatar();
+
+  window.addEventListener('storage', (event) => {
+    if (event.key === 'profileImage' || event.key === null) {
+      updateProfileAvatar();
+    }
+  });
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   const content = document.querySelector('.dashboard-content');
   const navigationItems = document.querySelectorAll(
