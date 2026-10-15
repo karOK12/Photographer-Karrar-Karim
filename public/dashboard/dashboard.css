@@ -1280,3 +1280,72 @@ a {
 .side-menu-overlay {
   z-index: 1100;
 }
+
+
+/* أقسام صفحة القائمة */
+.menu-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 760px;
+  margin: 0 auto 28px;
+}
+.menu-section-link {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-height: 78px;
+  padding: 14px 17px;
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: linear-gradient(145deg,
+    rgba(255,255,255,.035), rgba(255,255,255,.012));
+  transition: border-color .2s ease, transform .2s ease,
+    background .2s ease;
+}
+.menu-section-link:hover,
+.menu-section-link:focus-visible {
+  border-color: #42C8D8;
+  background: rgba(66,200,216,.07);
+  outline: none;
+}
+.menu-section-link:active {
+  transform: scale(.99);
+}
+.menu-section-icon {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  color: #42C8D8;
+  background: rgba(66,200,216,.10);
+  font-size: 23px;
+}
+.menu-section-name {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 800;
+}
+.menu-section-arrow {
+  color: #42C8D8;
+  font-size: 14px;
+}
+@media (max-width: 480px) {
+  .menu-sections { gap: 10px; }
+  .menu-section-link {
+    min-height: 72px;
+    padding: 12px;
+    gap: 12px;
+  }
+  .menu-section-icon {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+  }
+  .menu-section-name { font-size: 15px; }
+}
+/* نهاية تنسيق أقسام صفحة القائمة */

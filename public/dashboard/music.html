@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الموسيقى - كرار كريم</title>
+  <link rel="stylesheet" href="/dashboard/dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+<body>
+  <div class="dashboard-app">
+
+<header class="top-bar">
+  <div class="top-bar-inner">
+    <div class="brand">
+      <div class="brand-mark">KK</div>
+      <div class="brand-text">
+        <strong>كرار كريم</strong>
+        <span>لوحة التحكم</span>
+      </div>
+    </div>
+    <nav class="top-navigation" aria-label="التنقل العلوي">
+      <a href="/dashboard/studio.html" class="top-nav-item">
+        <i class="fa-solid fa-camera nav-icon" aria-hidden="true"></i>
+        <span>الاستوديو</span>
+      </a>
+      <a href="/dashboard/poetry.html" class="top-nav-item">
+        <i class="fa-solid fa-feather-pointed nav-icon" aria-hidden="true"></i>
+        <span>قصائد شعرية</span>
+      </a>
+      <a href="/dashboard/theatre.html" class="top-nav-item">
+        <i class="fa-solid fa-masks-theater nav-icon" aria-hidden="true"></i>
+        <span>مسرحي</span>
+      </a>
+      <a href="/dashboard/events.html" class="top-nav-item">
+        <i class="fa-solid fa-calendar-days nav-icon" aria-hidden="true"></i>
+        <span>المناسبات</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+    <main class="dashboard-content">
+      <section class="welcome-section">
+        <a href="/dashboard/menu.html" style="color:#42C8D8;text-decoration:none">
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          رجوع إلى القائمة
+        </a>
+        <div style="margin-top:24px">
+          <span class="welcome-label">الموسيقى</span>
+          <h1><i class="fa-solid fa-music" aria-hidden="true"
+             style="color:#42C8D8;margin-left:8px"></i>الموسيقى</h1>
+          <p>هنا تظهر المنشورات والمحتويات الموسيقية.</p>
+        </div>
+      </section>
+      <section class="content-placeholder">
+        <div class="placeholder-icon">
+          <i class="fa-solid fa-music" aria-hidden="true"></i>
+        </div>
+        <h2>الموسيقى</h2>
+        <p>سيظهر محتوى هذا القسم هنا عند إضافة المنشورات.</p>
+      </section>
+    </main>
+
+<nav class="bottom-bar" aria-label="التنقل الرئيسي">
+  <a href="/dashboard/index.html" class="bottom-nav-item">
+    <i class="fa-solid fa-house bottom-icon" aria-hidden="true"></i>
+    <span>الرئيسية</span>
+  </a>
+  <a href="/dashboard/festivals.html" class="bottom-nav-item">
+    <i class="fa-solid fa-trophy bottom-icon" aria-hidden="true"></i>
+    <span>المهرجانات</span>
+  </a>
+  <a href="/dashboard/articles.html" class="bottom-nav-item">
+    <i class="fa-solid fa-newspaper bottom-icon" aria-hidden="true"></i>
+    <span>المقالات</span>
+  </a>
+  <a href="/dashboard/menu.html" class="bottom-nav-item active">
+    <svg class="bottom-icon menu-icon" aria-hidden="true"
+      viewBox="0 0 48 48" width="24" height="24"
+      fill="currentColor" style="color:#42C8D8">
+      <rect x="5" y="5" width="16" height="16" rx="4"/>
+      <rect x="27" y="5" width="16" height="16" rx="4"/>
+      <rect x="5" y="27" width="16" height="16" rx="4"/>
+      <rect x="27" y="27" width="16" height="16" rx="4"/>
+    </svg>
+    <span>القائمة</span>
+  </a>
+</nav>
+
+  </div>
+
+<script>
+(async function () {
+  const sectionKey = 'music';
+  const main = document.querySelector('main.dashboard-content');
+  const placeholder = main && main.querySelector('.content-placeholder');
+  if (!main) return;
+
+  try {
+    const response = await fetch(
+      '/api/posts?section=' + encodeURIComponent(sectionKey),
+      { credentials: 'include' }
+    );
+    const data = await response.json();
+    if (!response.ok || !data.success) {
+      throw new Error(data.message || 'تعذر جلب المنشورات');
+    }
+
+    if (!Array.isArray(data.posts) || data.posts.length === 0) return;
+
+    const list = document.createElement('section');
+    list.className = 'dashboard-posts';
+    list.style.cssText = 'display:grid;gap:16px;margin-top:20px';
+
+    data.posts.forEach(post => {
+      const card = document.createElement('article');
+      card.style.cssText =
+        'padding:18px;border:1px solid #dce5e8;border-radius:14px;' +
+        'background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.04)';
+
+      const title = document.createElement('h2');
+      title.textContent = post.title || 'الموسيقى';
+      title.style.cssText = 'margin:0 0 10px;font-size:20px';
+
+      const content = document.createElement('p');
+      content.textContent = post.content || '';
+      content.style.cssText = 'white-space:pre-wrap;line-height:1.9;margin:0';
+
+      const date = document.createElement('small');
+      date.style.cssText = 'display:block;margin-top:12px;opacity:.7';
+      if (post.created_at) {
+        const parsed = new Date(post.created_at);
+        date.textContent = Number.isNaN(parsed.getTime())
+          ? ''
+          : parsed.toLocaleString('ar-IQ');
+      }
+
+      card.append(title, content, date);
+      list.appendChild(card);
+    });
+
+    if (placeholder) placeholder.replaceWith(list);
+    else main.appendChild(list);
+  } catch (error) {
+    console.error('Load section posts error:', error);
+    const message = placeholder && placeholder.querySelector('p');
+    if (message) message.textContent = 'تعذر تحميل المنشورات حاليًا. حاول تحديث الصفحة.';
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -292,6 +292,40 @@ app.patch('/api/permissions/users/:id', requireOwner, async (req, res) => {
   }
 });
 
+app.get('/api/posts', requireAuth, async (req, res) => {
+  try {
+    const section = String(req.query.section || '').trim();
+    const allowedSections = [
+      'studio', 'poetry', 'theatre', 'events', 'festivals', 'articles',
+      'sports', 'cinema', 'music', 'news'
+    ];
+
+    if (!allowedSections.includes(section)) {
+      return res.status(400).json({
+        success: false,
+        message: 'القسم غير صالح'
+      });
+    }
+
+    const result = await pool.query(
+      `SELECT id, section, subsection, title, content, created_at
+       FROM posts
+       WHERE section = $1 AND is_published = true
+       ORDER BY created_at DESC
+       LIMIT 100`,
+      [section]
+    );
+
+    return res.json({ success: true, posts: result.rows });
+  } catch (error) {
+    console.error('Get posts error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'تعذر جلب المنشورات'
+    });
+  }
+});
+
 app.post('/api/posts', requirePublisher, async (req, res) => {
   try {
     const {
@@ -321,7 +355,11 @@ app.post('/api/posts', requirePublisher, async (req, res) => {
       'theatre',
       'events',
       'festivals',
-      'articles'
+      'articles',
+      'sports',
+      'cinema',
+      'music',
+      'news'
     ];
 
     const cleanSection = section.trim();
