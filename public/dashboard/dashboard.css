@@ -1247,19 +1247,28 @@ a {
   cursor: pointer;
 }
 
-
-/* إبقاء الشريط العلوي والأيقونات فوق القائمة والطبقة المعتمة */
+/* ترتيب الطبقات: خلفية معتمة مستقلة وأيقونات فوق القائمة */
 .top-bar {
-  z-index: 1400;
-  background: rgba(6, 16, 29, 0.94);
+  z-index: auto;
+  background: transparent;
+  border-bottom: 0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.top-bar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: rgba(6, 16, 29, 0.96);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  pointer-events: none;
 }
 
 .top-bar-inner {
-  position: relative;
-  z-index: 1401;
-}
-
-.top-navigation {
   position: relative;
   z-index: 1401;
 }
@@ -1270,11 +1279,4 @@ a {
 
 .side-menu-overlay {
   z-index: 1100;
-}
-
-/* إظهار القائمة خلف الأيقونات العلوية عند فتحها */
-body.side-menu-visible .top-bar {
-  background: transparent;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
 }
