@@ -1238,3 +1238,11 @@ a {
   object-fit: cover;
   border-radius: 50%;
 }
+
+
+/* أيقونة البروفايل تفتح صفحة بيانات المستخدم */
+.top-navigation > a#dashboardProfileAvatar {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
