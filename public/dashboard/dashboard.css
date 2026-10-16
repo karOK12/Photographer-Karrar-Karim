@@ -1363,3 +1363,24 @@ a {
 
 /* Restore top-left side menu button only */
 .top-bar .top-bar-inner > .side-menu-toggle { display: grid !important; visibility: visible !important; opacity: 1 !important; position: relative !important; top: auto !important; left: auto !important; right: auto !important; transform: none !important; order: -1 !important; margin: 0 12px 0 0 !important; flex: 0 0 42px !important; z-index: 1401 !important; }
+
+/* إصلاح ظهور أقسام صفحة القائمة */
+.dashboard-content > .menu-sections {
+  display: flex !important;
+  flex-direction: column !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.dashboard-content > .menu-sections > .menu-section-link {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  flex-shrink: 0 !important;
+  min-height: 72px !important;
+}
